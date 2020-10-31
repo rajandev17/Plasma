@@ -1,5 +1,7 @@
 # Plasma
 
+### Work In Progress ###
+
 Plasma is an Benchmark Android Application relying on [TheMovieDB](https://www.themoviedb.org) Open API to display trending movie information, 
 search movie and TV Shows, Watch list movies based on user. All the user credentials are saved Locally inside SQLite database.
 
@@ -49,6 +51,10 @@ search movie and TV Shows, Watch list movies based on user. All the user credent
 - Multi Module
 - ViewModelInject
 - KenbunsView with Compose
+
+### How to Use
+Fork this project, Use Android studio 4.2+ and get your own Api key from [TheMovieDB](https://www.themoviedb.org), and place it at 
+```NetworkModule(line:18)```, build and start using the app.
 
 ### About Me 
 Android Developer with passion towards technology, Trying to solve real life problems in a best possible way with Awesome Tech in Hand. <3 Kotlin
