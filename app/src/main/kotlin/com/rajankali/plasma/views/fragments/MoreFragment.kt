@@ -83,7 +83,11 @@ class MoreFragment: HomeBaseFragment() {
     @Composable
     fun WebButton(webRequest: WebRequest){
         CardButton(webRequest.title){
-            homeNavController.navigateSafely(HomeFragmentDirections.actionHomeFragmentToPlasmaWebView().setWebRequestKey(webRequest.key))
+            if(webRequest == WebRequest.LINKED_IN){
+                mainActivity.openURL(webRequest.url)
+            }else {
+                homeNavController.navigateSafely(HomeFragmentDirections.actionHomeFragmentToPlasmaWebView().setWebRequestKey(webRequest.key))
+            }
         }
     }
 

@@ -1,5 +1,7 @@
 package com.rajankali.plasma.views.activities
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.compose.runtime.mutableStateOf
@@ -32,6 +34,12 @@ class MainActivity : BaseActivity() {
             loggedInUserId = it
         }
         mainActivityViewModel.verifyLogin()
+    }
+
+    fun openURL(url: String){
+        startActivity(Intent(Intent.ACTION_VIEW).apply {
+            data = Uri.parse(url)
+        })
     }
 
 }
