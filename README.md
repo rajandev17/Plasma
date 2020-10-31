@@ -19,15 +19,7 @@ search movie and TV Shows, Watch list movies based on user. All the user credent
 - Single Activity Architecture
 - MVVM Architecture
 
-![Alt text](/screenshots/Screenshot_1604178812.png?raw=true)
-![Alt text](/screenshots/trending.png?raw=true)
-![Alt text](/screenshots/Screenshot_1604179071.png?raw=true)
-![Alt text](/screenshots/Screenshot_1604178709.png?raw=true)
-![Alt text](/screenshots/Screenshot_1604178759.png?raw=true)
-![Alt text](/screenshots/Screenshot_1604178768.png?raw=true)
-![Alt text](/screenshots/Screenshot_1604178773.png?raw=true)
-![Alt text](/screenshots/Screenshot_1604178798.png?raw=true)
-![Alt text](/screenshots/Screenshot_1604178812.png?raw=true)
+
 
 
 ```Works on Android Studio 4.2 Canary 14, gradle 4.2.0-alpha14```
