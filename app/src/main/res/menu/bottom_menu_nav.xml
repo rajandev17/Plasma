@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/trendingFragment"
+        android:title="@string/trending"
+        app:showAsAction="ifRoom"
+        android:orderInCategory="1"
+        android:icon="@drawable/ic_baseline_trending_up_24"/>
+    <item
+        android:id="@+id/searchFragment"
+        android:title="@string/search"
+        app:showAsAction="ifRoom"
+        android:orderInCategory="1"
+        android:icon="@drawable/ic_baseline_search_24"/>
+    <item
+        android:id="@+id/watchListFragment"
+        android:title="@string/watchlist"
+        app:showAsAction="ifRoom"
+        android:orderInCategory="1"
+        android:icon="@drawable/ic_baseline_recent_24"/>
+    <item
+        android:id="@+id/moreFragment"
+        android:title="@string/more"
+        app:showAsAction="ifRoom"
+        android:orderInCategory="1"
+        android:icon="@drawable/ic_baseline_menu_24"/>
+</menu>

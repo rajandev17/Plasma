@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/plasma_navigation"
+    app:startDestination="@id/splashFragment"
+    tools:ignore="MissingDefaultResource">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.rajankali.plasma.views.fragments.MainFragment"
+        android:label="MainFragment">
+        <action
+            android:id="@+id/action_mainFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/plasma_navigation"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_mainFragment_to_registerFragment"
+            app:destination="@id/registerFragment"
+            app:enterAnim="@anim/slide_in_top"
+            app:exitAnim="@anim/no_anim"
+            app:popEnterAnim="@anim/no_anim"
+            app:popExitAnim="@anim/slide_out_top" />
+        <action
+            android:id="@+id/action_mainFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/slide_in_top"
+            app:exitAnim="@anim/no_anim"
+            app:popEnterAnim="@anim/no_anim"
+            app:popExitAnim="@anim/slide_out_top" />
+        <argument
+            android:name="isOnboarding"
+            android:defaultValue="true"
+            app:argType="boolean" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.rajankali.plasma.views.fragments.RegisterFragment"
+        android:label="RegisterFragment">
+        <action
+            android:id="@+id/action_registerFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/plasma_navigation"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.rajankali.plasma.views.fragments.LoginFragment"
+        android:label="LoginFragment">
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/plasma_navigation"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.rajankali.plasma.views.fragments.HomeFragment"
+        android:label="HomeFragment">
+        <action
+            android:id="@+id/action_homeFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+        <argument
+            android:name="loggedInUserId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_homeFragment_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment"
+            app:enterAnim="@anim/slide_in_top"
+            app:exitAnim="@anim/no_anim"
+            app:popEnterAnim="@anim/no_anim"
+            app:popExitAnim="@anim/slide_out_top" />
+        <action
+            android:id="@+id/action_homeFragment_to_mainFragment_clear_stack"
+            app:destination="@id/mainFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/plasma_navigation"
+            app:popUpToInclusive="true" />
+        <deepLink
+            android:id="@+id/deepLink"
+            android:autoVerify="true"
+            app:action="ACTION_VIEW"
+            app:uri="https://www.plasma.app/home/{loggedInUserId}"
+            tools:ignore="UnusedAttribute" />
+        <action
+            android:id="@+id/action_homeFragment_to_plasmaWebView"
+            app:destination="@id/plasmaWebView" />
+    </fragment>
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.rajankali.plasma.views.fragments.SplashFragment"
+        android:label="SplashFragment">
+        <action
+            android:id="@+id/action_splashFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/plasma_navigation"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splashFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/plasma_navigation"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/movieDetailFragment"
+        android:name="com.rajankali.plasma.views.fragments.MovieDetailFragment"
+        android:label="MovieDetailFragment">
+        <argument
+            android:name="movie"
+            app:argType="com.rajankali.core.data.Movie" />
+    </fragment>
+    <fragment
+        android:id="@+id/plasmaWebView"
+        android:name="com.rajankali.plasma.views.fragments.PlasmaWebView"
+        android:label="PlasmaWebView">
+        <argument
+            android:name="webRequestKey"
+            android:defaultValue="1"
+            app:argType="integer" />
+        <deepLink
+            android:id="@+id/deepLink3"
+            android:autoVerify="true"
+            app:action="ACTION_VIEW"
+            app:uri="https://www.plasma.app/web/{webRequestKey}" />
+    </fragment>
+</navigation>

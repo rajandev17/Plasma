@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Plasma</string>
+    <string name="trending">Trending</string>
+    <string name="search">Search</string>
+    <string name="watchlist">WatchList</string>
+    <string name="more">More</string>
+</resources>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/home_bottom_navigation"
+    app:startDestination="@id/trendingFragment">
+
+    <fragment
+        android:id="@+id/trendingFragment"
+        android:name="com.rajankali.plasma.views.fragments.TrendingFragment"
+        android:label="TrendingFragment">
+
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.rajankali.plasma.views.fragments.SearchFragment"
+        android:label="SearchFragment" >
+
+    </fragment>
+    <fragment
+        android:id="@+id/watchListFragment"
+        android:name="com.rajankali.plasma.views.fragments.WatchListFragment"
+        android:label="WatchListFragment">
+
+        <deepLink
+            android:id="@+id/deepLink2"
+            android:autoVerify="true"
+            app:action="ACTION_VIEW"
+            app:uri="https://www.plasma.app/home/tab/watchlist" />
+    </fragment>
+    <fragment
+        android:id="@+id/moreFragment"
+        android:name="com.rajankali.plasma.views.fragments.MoreFragment"
+        android:label="MoreFragment" />
+</navigation>

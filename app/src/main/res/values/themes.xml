@@ -1,0 +1,25 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Plasma" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/blue200</item>
+        <item name="colorPrimaryVariant">@color/blue</item>
+        <item name="colorOnPrimary">@color/onPrimary</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal</item>
+        <item name="colorSecondaryVariant">@color/teal700</item>
+        <item name="colorOnSecondary">@color/onSecondary</item>
+        <item name="colorOnSurface">@color/onSurface</item>
+        <item name="colorSurface">@color/surface</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/status_bar</item>
+        <item name="android:navigationBarColor">@color/material_on_background_emphasis_medium</item>
+        <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@color/surface</item>
+        <item name="android:fontFamily">@font/font_family_plasma</item>
+    </style>
+
+    <style name="Theme.Plasma.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.Plasma.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+</resources>
