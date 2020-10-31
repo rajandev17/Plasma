@@ -1,11 +1,11 @@
-##Plasma
+# Plasma
 
 Plasma is an Benchmark Android Application relying on [TheMovieDB](https://www.themoviedb.org) Open API to display trending movie information, 
 search movie and TV Shows, Watch list movies based on user. All the user credentials are saved Locally inside SQLite database.
 
 ```100% Kotlin <3 <3```
 
-This Benchmark App is built using latest Android tools and Jetpack libraries. App Includes
+#### This Benchmark App is built using latest Android tools and Jetpack libraries. App Includes
 - Jetpack Compose
 - Jetpack DataStore
 - Jetpack Room
@@ -20,7 +20,7 @@ This Benchmark App is built using latest Android tools and Jetpack libraries. Ap
 ```Works on Android Studio 4.2 Canary 14, gradle 4.2.0-alpha14```
 
 
-This App demonstrates combination of below features
+#### This App demonstrates combination of below features
 - Jetpack Compose
     - TextField
     - OutlinedTextField + Password Visual Transformation
@@ -50,11 +50,10 @@ This App demonstrates combination of below features
 - ViewModelInject
 - KenbunsView with Compose
 
-###About Me 
-I Have been seamlessly learning and developing impactful Real Time Android Applications using the latest standards. 
-Trying to solve real life problems in a best possible way with best Tech in Hand. <3 Kotlin
+### About Me 
+Android Developer with passion towards technology, Trying to solve real life problems in a best possible way with Awesome Tech in Hand. <3 Kotlin
 
-###Connect with Me
+### Connect with Me
 - [StackOverflow | Rajan](https://stackoverflow.com/users/3159267/rajan-ks)
 - [LinkedIn | Rajan](https://www.linkedin.com/in/rajan-ks/)
 - [Medium | Rajan](https://medium.com/@rajanks)
