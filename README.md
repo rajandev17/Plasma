@@ -26,6 +26,7 @@ search movie and TV Shows, Watch list movies based on user. All the user credent
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 <img src="/screenshots/demo.gif?raw=true" width="300"/>
 =======
 ![Alt text](/screenshots/Screenshot_1604178812.png?raw=true)
@@ -41,6 +42,9 @@ search movie and TV Shows, Watch list movies based on user. All the user credent
 =======
 
 >>>>>>> 2891a13... Update README.md
+=======
+<img src="/screenshots/demo.gif?raw=true" width="300"/>
+>>>>>>> 2e3c4d1... Update README.md
 
 
 ```Works on Android Studio 4.2 Canary 14, gradle 4.2.0-alpha14```
