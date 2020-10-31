@@ -5,7 +5,7 @@
 =======
 >>>>>>> e8bae26... Update README.md
 
-### Work In Progress ###
+## Work In Progress 🚧
 
 Plasma is an Benchmark Android Application relying on [TheMovieDB](https://www.themoviedb.org) Open API to display trending movie information, 
 search movie and TV Shows, Watch list movies based on user. All the user credentials are saved Locally inside SQLite database.
@@ -24,7 +24,19 @@ search movie and TV Shows, Watch list movies based on user. All the user credent
 - Single Activity Architecture
 - MVVM Architecture
 
+<<<<<<< HEAD
 <img src="/screenshots/demo.gif?raw=true" width="300"/>
+=======
+![Alt text](/screenshots/Screenshot_1604178812.png?raw=true)
+![Alt text](/screenshots/trending.png?raw=true)
+![Alt text](/screenshots/Screenshot_1604179071.png?raw=true)
+![Alt text](/screenshots/Screenshot_1604178709.png?raw=true)
+![Alt text](/screenshots/Screenshot_1604178759.png?raw=true)
+![Alt text](/screenshots/Screenshot_1604178768.png?raw=true)
+![Alt text](/screenshots/Screenshot_1604178773.png?raw=true)
+![Alt text](/screenshots/Screenshot_1604178798.png?raw=true)
+![Alt text](/screenshots/Screenshot_1604178812.png?raw=true)
+>>>>>>> 7fd0f26... Update README.md
 
 
 ```Works on Android Studio 4.2 Canary 14, gradle 4.2.0-alpha14```
@@ -62,9 +74,13 @@ search movie and TV Shows, Watch list movies based on user. All the user credent
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 25b03e4... updated readme
+=======
+
+>>>>>>> 7fd0f26... Update README.md
 ### How to Use
 Fork this project, Use Android studio 4.2+ and get your own Api key from [TheMovieDB](https://www.themoviedb.org), and place it at 
 ```NetworkModule(line:18)```, build and start using the app.
