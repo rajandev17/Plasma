@@ -2,8 +2,7 @@
 
 ## 🚧 Work In Progress 🚧
 
-Plasma is an Benchmark Android Application using latest Android components, which displays trending movies/tv shows,search movies and TV Shows and 
-also add them watchlist based on logged in credential,view entire cast of the Movies/TV shows. 
+A Benchmark Android Application using latest Android components, which displays trending movies/tv shows, search movies and TV Shows and also add them watchlist based on logged in credentials , also view entire cast of Movies/TV shows.
 
 ```100% Kotlin ❤️❤️```
 
