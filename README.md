@@ -54,7 +54,7 @@ A Benchmark Android Application using latest Android components, which displays 
 - ViewModelInject
 - KenbunsView with Compose
 
-###Data
+### Data
 All the user credentials and Watchlist are saved Locally in Client SQLite Database for now.
 The data for movies/TV shows are fetched from <a href = "https://www.themoviedb.org">TheMovieDB<a/> open API.
 
