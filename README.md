@@ -66,4 +66,4 @@ Android Developer with passion towards technology, Trying to solve real life pro
 ### Connect with Me
 - <a href= "https://stackoverflow.com/users/3159267/rajan-ks">StackOverflow | Rajan Kali<a/>
 - <a href = "https://www.linkedin.com/in/rajan-ks/">LinkedIn | Rajan<a/>
-- <a href = "https://medium.com/@rajanks">[Medium | Rajan<a/>
+- <a href = "https://medium.com/@rajanks">Medium | Rajan<a/>
