@@ -64,6 +64,6 @@ Fork this project, Use Android studio 4.2+ and get your own Api key from [TheMov
 Android Developer with passion towards technology, Trying to solve real life problems in a best possible way with Awesome Tech in Hand. <3 Kotlin
 
 ### Connect with Me
-- [StackOverflow | Rajan](https://stackoverflow.com/users/3159267/rajan-ks)
-- [LinkedIn | Rajan](https://www.linkedin.com/in/rajan-ks/)
-- [Medium | Rajan](https://medium.com/@rajanks)
+- <a href= "https://stackoverflow.com/users/3159267/rajan-ks">StackOverflow | Rajan Kali<a/>
+- <a href = "https://www.linkedin.com/in/rajan-ks/">LinkedIn | Rajan<a/>
+- <a href = "https://medium.com/@rajanks">[Medium | Rajan<a/>
