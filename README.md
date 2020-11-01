@@ -2,11 +2,9 @@
 
 ## 🚧 Work In Progress 🚧
 
-A Benchmark Android Application using latest Android components, which displays trending movies/tv shows, search movies and TV Shows and also add them watchlist based on logged in credentials , also view entire cast of Movies/TV shows.
-
 ```100% Kotlin ❤️❤️```
 
-#### This Benchmark App is built using latest Android tools and Jetpack libraries. App Includes
+#### This Benchmark App is built using latest Android tools and Jetpack libraries which includes
 - Jetpack Compose
 - Jetpack DataStore
 - Jetpack Room
@@ -63,7 +61,8 @@ Fork this project, Use Android studio 4.2+ and get your own Api key from <a href
 ```NetworkModule(line:18)```, build and start using the app.
 
 ### About Me 
-Android Developer with passion towards technology, Trying to solve real life problems in a best possible way with Awesome Tech in Hand. <3 Kotlin
+Android Developer with passion towards technology, trying to solve real life problems in a best possible way with Awesome Tech in Hand. 
+I ❤️ Kotlin
 
 ### Connect with Me
 - <a href= "https://stackoverflow.com/users/3159267/rajan-ks">StackOverflow | Rajan Kali<a/>

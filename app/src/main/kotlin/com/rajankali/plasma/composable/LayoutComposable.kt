@@ -125,6 +125,13 @@ fun Dialog(state: MutableState<Boolean>,title: String, desc: String, pText: Stri
 }
 
 @Composable
+fun ColumnLine(modifier: Modifier = Modifier){
+    columnSpacer(value = 8)
+    Divider(modifier = modifier.preferredHeight((0.8).dp).fillMaxWidth(), color = MaterialTheme.colors.onSurface.copy(alpha = 0.3F))
+    columnSpacer(value = 8)
+}
+
+@Composable
 fun handleState(pageStateLiveData: LiveData<PageState>,
                 IdleView: @Composable () -> Unit = { },
                 errorMessage: String = "Oops! Something went wrong, Please try again after some time",

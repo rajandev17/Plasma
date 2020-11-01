@@ -25,10 +25,9 @@
 package com.rajankali.plasma.views.fragments
 
 import androidx.compose.foundation.Text
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -55,10 +54,20 @@ class MoreFragment: HomeBaseFragment() {
         Scaffold(topBar = { UserGreeting() }, modifier = Modifier.padding(16.dp)) {
             Column(Modifier.fillMaxWidth()) {
                 columnSpacer(value = 16)
+                H6(text = "About Plasma")
+                ColumnLine()
+                ProvideEmphasis(emphasis = AmbientEmphasisLevels.current.medium) {
+                    Body2(text = "A Benchmark Android Application using latest Android components, which displays trending movies/tv shows, search movies and TV Shows and also add them watchlist based on logged in credentials , also view entire cast of Movies/TV shows.")
+                }
+                columnSpacer(value = 8)
+                WebButton(webRequest = WebRequest.PLASMA)
+
+                columnSpacer(value = 16)
                 H6(text = "About Me")
-                LazyGridFor(listOf(WebRequest.LINKED_IN, WebRequest.STACK_OVERFLOW, WebRequest.GITHUB, WebRequest.MEDIUM), rows = 2) { webRequest, _ ->
-                    columnSpacer(value = 16)
-                    WebButton(webRequest = webRequest)
+                ColumnLine()
+                listOf(WebRequest.LINKED_IN, WebRequest.STACK_OVERFLOW, WebRequest.GITHUB, WebRequest.MEDIUM).forEach {
+                    columnSpacer(value = 8)
+                    WebButton(webRequest = it)
                 }
             }
         }
@@ -106,13 +115,13 @@ class MoreFragment: HomeBaseFragment() {
 
     @Composable
     fun WebButton(webRequest: WebRequest){
-        CardButton(webRequest.title){
+        Link(text = webRequest.title, modifier = Modifier.clickable{
             if(webRequest == WebRequest.LINKED_IN){
                 mainActivity.openURL(webRequest.url)
             }else {
                 homeNavController.navigateSafely(HomeFragmentDirections.actionHomeFragmentToPlasmaWebView().setWebRequestKey(webRequest.key))
             }
-        }
+        })
     }
 
     override fun initObservers() {

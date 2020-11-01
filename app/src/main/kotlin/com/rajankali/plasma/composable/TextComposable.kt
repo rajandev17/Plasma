@@ -35,6 +35,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.rajankali.plasma.ui.titleTextStyle
@@ -52,10 +53,15 @@ fun TextButton(text: String, modifier: Modifier = Modifier){
 }
 
 @Composable
+fun Link(text: String, modifier: Modifier = Modifier){
+    Text(text = text, color = MaterialTheme.colors.primaryVariant,
+            modifier = modifier,
+            style = MaterialTheme.typography.button, textDecoration = TextDecoration.Underline)
+}
+
+@Composable
 fun Body2(text: String, modifier: Modifier = Modifier){
-    ProvideEmphasis(emphasis = AmbientEmphasisLevels.current.high) {
-        Text(text = text, modifier = modifier, style = MaterialTheme.typography.body2)
-    }
+    Text(text = text, modifier = modifier, style = MaterialTheme.typography.body2)
 }
 
 @Composable
