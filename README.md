@@ -1,11 +1,11 @@
 # Plasma
 
-## Work In Progress 🚧
+## 🚧 Work In Progress 🚧
 
-Plasma is an Benchmark Android Application relying on [TheMovieDB](https://www.themoviedb.org) Open API to display trending movie information, 
-search movie and TV Shows, Watch list movies based on user. All the user credentials are saved Locally inside SQLite database.
+Plasma is an Benchmark Android Application using latest Android components, which displays trending movies/tv shows,search movies and TV Shows and 
+also add them watchlist based on logged in credential,view entire cast of the Movies/TV shows. 
 
-```100% Kotlin <3 <3```
+```100% Kotlin ❤️❤️```
 
 #### This Benchmark App is built using latest Android tools and Jetpack libraries. App Includes
 - Jetpack Compose
@@ -55,9 +55,12 @@ search movie and TV Shows, Watch list movies based on user. All the user credent
 - ViewModelInject
 - KenbunsView with Compose
 
+###Data
+All the user credentials and Watchlist are saved Locally in Client SQLite Database for now.
+The data for movies/TV shows are fetched from <a href = "https://www.themoviedb.org">TheMovieDB<a/> open API.
 
 ### How to Use
-Fork this project, Use Android studio 4.2+ and get your own Api key from [TheMovieDB](https://www.themoviedb.org), and place it at 
+Fork this project, Use Android studio 4.2+ and get your own Api key from <a href = "https://www.themoviedb.org">TheMovieDB<a/>, and place it at 
 ```NetworkModule(line:18)```, build and start using the app.
 
 ### About Me 
