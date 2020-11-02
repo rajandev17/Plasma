@@ -1,4 +1,4 @@
-#### Firstly, I appreciate for investing your time and effort to contribute 🎉👍 Let's build it Together.
+#### Firstly, I appreciate for investing your time and effort to contribute 🎉👍 Let's build it Together ✌.
 
 ## Prerequisites
 - Experience in Kotlin
@@ -8,6 +8,9 @@
 - Idea about Kotlin Coroutines and Flows
 - Writing Unit and UI tests
 - Last but not least, if you are new to any of above topics we can always learn while working together
+
+## Tools
+- Android Studio 4.2 Canary 15
 
 ## Contributing guidelines for Plamsa
 - Fork the project, develop and test
