@@ -32,11 +32,10 @@ import com.google.gson.annotations.SerializedName
 import com.rajankali.core.network.NetworkModule
 import com.rajankali.core.utils.movieDisplayDateFormat
 import com.rajankali.core.utils.movieResponseDateFormat
+import java.text.ParseException
+import java.util.Locale
 import kotlinx.android.parcel.IgnoredOnParcel
 import kotlinx.android.parcel.Parcelize
-import java.text.ParseException
-import java.util.*
-import kotlin.collections.ArrayList
 
 @Parcelize
 @Entity(tableName = "movie")
@@ -69,7 +68,7 @@ data class Movie(
     val voteAverage: Double,
     @SerializedName("vote_count")
     val voteCount: Int
-) : Parcelable{
+) : Parcelable {
 
     @Ignore
     @SerializedName("genre_ids")
@@ -90,6 +89,6 @@ data class Movie(
 
     @IgnoredOnParcel
     val date: String get() {
-        return try { releaseDate?.let {  movieResponseDateFormat.parse(releaseDate)?.let { movieDisplayDateFormat.format(it) }?:"N/A" }?:""}catch (pe: ParseException) { ""}
+        return try { releaseDate?.let { movieResponseDateFormat.parse(releaseDate)?.let { movieDisplayDateFormat.format(it) } ?: "N/A" } ?: "" } catch (pe: ParseException) { "" }
     }
 }

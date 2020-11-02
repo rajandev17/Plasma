@@ -26,10 +26,25 @@ package com.rajankali.plasma.views.fragments
 
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
-import androidx.compose.runtime.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayout
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.AmbientEmphasisLevels
+import androidx.compose.material.Card
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.ProvideEmphasis
+import androidx.compose.material.TextField
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.onActive
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -40,30 +55,40 @@ import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.rajankali.plasma.R
-import com.rajankali.plasma.composable.*
+import com.rajankali.plasma.composable.Chip
+import com.rajankali.plasma.composable.GridItem
+import com.rajankali.plasma.composable.IconText
+import com.rajankali.plasma.composable.LazyGridFor
+import com.rajankali.plasma.composable.columnSpacer
+import com.rajankali.plasma.composable.handleState
 import com.rajankali.plasma.data.model.LatestData
 import com.rajankali.plasma.utils.navigateSafely
 import com.rajankali.plasma.viewmodels.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CompletableJob
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @ExperimentalLayout
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
-class SearchFragment: HomeBaseFragment() {
+class SearchFragment : HomeBaseFragment() {
 
     private val searchViewModel: SearchViewModel by viewModels()
 
-    private var delayJob:CompletableJob = Job()
+    private var delayJob: CompletableJob = Job()
 
     @Composable
-    override fun setContent(){
-        Column (Modifier.fillMaxWidth().padding(16.dp)){
+    override fun setContent() {
+        Column(Modifier.fillMaxWidth().padding(16.dp)) {
             val searchState = remember { mutableStateOf(TextFieldValue("")) }
             Card(elevation = 8.dp, shape = MaterialTheme.shapes.small, modifier = Modifier.fillMaxWidth().height(45.dp)) {
                 Box(Modifier.fillMaxSize()) {
                     ProvideEmphasis(emphasis = AmbientEmphasisLevels.current.medium) {
-                        val hint = if(searchState.value.text.isEmpty()) "Search Movies and TV Shows" else ""
+                        val hint = if (searchState.value.text.isEmpty()) "Search Movies and TV Shows" else ""
                         Text(text = hint,
                                 modifier = Modifier.align(Alignment.CenterStart).padding(start = 16.dp),
                                 textAlign = TextAlign.Start,
@@ -91,7 +116,7 @@ class SearchFragment: HomeBaseFragment() {
                 }
             }
             columnSpacer(value = 10)
-            handleState(pageStateLiveData = searchViewModel.pageStateLiveData, IdleView = { IdleSearch{
+            handleState(pageStateLiveData = searchViewModel.pageStateLiveData, IdleView = { IdleSearch {
                 searchState.value = TextFieldValue(it, TextRange(it.length))
             } }, emptyMessage = "No Search results found matching the query, Try again with different query") {
                 SearchResults(searchViewModel)
@@ -103,29 +128,29 @@ class SearchFragment: HomeBaseFragment() {
     private fun SearchResults(searchViewModel: SearchViewModel) {
         val searchFlowState = searchViewModel.searchShowStateFlow.collectAsState(initial = LatestData(emptyList()))
         LazyGridFor(items = searchFlowState.value.data, hPadding = 0) { movie, index ->
-            if(index == searchFlowState.value.data.lastIndex){
-                onActive{
+            if (index == searchFlowState.value.data.lastIndex) {
+                onActive {
                     searchViewModel.nextPage()
                 }
             }
-            GridItem(movie){
+            GridItem(movie) {
                 homeNavController.navigateSafely(HomeFragmentDirections.actionHomeFragmentToMovieDetailFragment(movie))
             }
         }
     }
 
     @Composable
-    fun IdleSearch(onClick: (term: String) -> Unit){
+    fun IdleSearch(onClick: (term: String) -> Unit) {
         Column(Modifier.fillMaxWidth()) {
             val recentSearchState = searchViewModel.recentSearchLiveData.observeAsState(initial = emptyList())
-            if(recentSearchState.value.isNotEmpty()){
+            if (recentSearchState.value.isNotEmpty()) {
                 columnSpacer(value = 8)
                 IconText(text = "Recent Searches", icon = R.drawable.ic_baseline_recent_24)
             }
             columnSpacer(value = 8)
             FlowRow {
                 recentSearchState.value.forEach {
-                    Chip(text = it, icon = R.drawable.ic_baseline_trending_up_24){
+                    Chip(text = it, icon = R.drawable.ic_baseline_trending_up_24) {
                         onClick(it)
                         searchViewModel.search(it)
                     }

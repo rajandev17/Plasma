@@ -36,7 +36,7 @@ interface MovieDao {
     suspend fun addToWatchList(movie: Movie): Long
 
     @Query("SELECT * FROM movie WHERE userId = :userId")
-    suspend fun fetchWatchList(userId: Long) : List<Movie>
+    suspend fun fetchWatchList(userId: Long): List<Movie>
 
     @Query("DELETE FROM movie WHERE userId =:userId AND id = :movieId")
     suspend fun removeFromWatchList(userId: Long, movieId: Int): Int

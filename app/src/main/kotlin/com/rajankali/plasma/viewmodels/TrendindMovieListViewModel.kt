@@ -45,7 +45,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 @ExperimentalCoroutinesApi
-class TrendindMovieListViewModel @ViewModelInject constructor(private val movieRepo: MovieRepo): ViewModel() {
+class TrendindMovieListViewModel @ViewModelInject constructor(private val movieRepo: MovieRepo) : ViewModel() {
 
     private val _trendingShowsStateFlow = MutableStateFlow(LatestData<Movie>(emptyList()))
     val trendingShowStateFlow: StateFlow<LatestData<Movie>>
@@ -61,13 +61,13 @@ class TrendindMovieListViewModel @ViewModelInject constructor(private val movieR
 
     fun fetchMovies(movieRequest: MovieRequest) = viewModelScope.launch {
         this@TrendindMovieListViewModel.movieRequest = movieRequest
-        if(page == 1){
+        if (page == 1) {
             _pageStateLiveData.postValue(PageState.LOADING)
         }
-        when(val result = movieRepo.fetchTrendingMovies(page = page, movieRequest.mediaType, movieRequest.timeWindow)){
+        when (val result = movieRepo.fetchTrendingMovies(page = page, movieRequest.mediaType, movieRequest.timeWindow)) {
             is Success -> {
                 totalPages = result.data.totalPages
-                if(page == 1) {
+                if (page == 1) {
                     _pageStateLiveData.postValue(PageState.DATA)
                 }
                 page++
@@ -79,8 +79,8 @@ class TrendindMovieListViewModel @ViewModelInject constructor(private val movieR
         }
     }
 
-    fun nextPage(){
-        if(page <= totalPages){
+    fun nextPage() {
+        if (page <= totalPages) {
             fetchMovies(movieRequest)
         }
     }

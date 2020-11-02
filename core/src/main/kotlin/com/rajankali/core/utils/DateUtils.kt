@@ -24,9 +24,9 @@
 
 package com.rajankali.core.utils
 
-import java.util.*
+import java.util.Calendar
 
-fun greetingBasedOnTime(): String{
+fun greetingBasedOnTime(): String {
     val c: Calendar = Calendar.getInstance()
     return when (c.get(Calendar.HOUR_OF_DAY)) {
         in 0..11 -> {

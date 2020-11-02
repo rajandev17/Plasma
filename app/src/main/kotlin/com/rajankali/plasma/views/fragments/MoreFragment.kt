@@ -26,8 +26,18 @@ package com.rajankali.plasma.views.fragments
 
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.AmbientEmphasisLevels
+import androidx.compose.material.Card
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.ProvideEmphasis
+import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -36,21 +46,28 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
 import com.rajankali.core.utils.greetingBasedOnTime
-import com.rajankali.plasma.composable.*
+import com.rajankali.plasma.composable.Body2
+import com.rajankali.plasma.composable.CardButton
+import com.rajankali.plasma.composable.ColumnLine
+import com.rajankali.plasma.composable.Dialog
+import com.rajankali.plasma.composable.H6
+import com.rajankali.plasma.composable.Link
+import com.rajankali.plasma.composable.Toast
+import com.rajankali.plasma.composable.columnSpacer
 import com.rajankali.plasma.enums.WebRequest
 import com.rajankali.plasma.utils.navigateSafely
 import com.rajankali.plasma.viewmodels.MoreViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
+import java.util.Locale
 
 @AndroidEntryPoint
-class MoreFragment: HomeBaseFragment() {
+class MoreFragment : HomeBaseFragment() {
 
     private val moreViewModel: MoreViewModel by viewModels()
     private val dialogState = mutableStateOf(false)
 
     @Composable
-    override fun setContent(){
+    override fun setContent() {
         Scaffold(topBar = { UserGreeting() }, modifier = Modifier.padding(16.dp)) {
             Column(Modifier.fillMaxWidth()) {
                 columnSpacer(value = 16)
@@ -71,7 +88,7 @@ class MoreFragment: HomeBaseFragment() {
                 }
             }
         }
-        Dialog(state = dialogState, title = "Logout", desc = "Are you sure you want to Logout, it will clear all your existing data including WatchList?", pText = "Confirm"){
+        Dialog(state = dialogState, title = "Logout", desc = "Are you sure you want to Logout, it will clear all your existing data including WatchList?", pText = "Confirm") {
             moreViewModel.clearPrefs()
         }
     }
@@ -86,7 +103,7 @@ class MoreFragment: HomeBaseFragment() {
         Card(Modifier.fillMaxWidth().height(60.dp), elevation = 4.dp, shape = MaterialTheme.shapes.medium) {
             Box(modifier = Modifier.padding(16.dp, 0.dp)) {
                 Text(
-                    text = "${greetingBasedOnTime()} ${greetingState.value?.capitalize(Locale.ENGLISH)?:"User"}",
+                    text = "${greetingBasedOnTime()} ${greetingState.value?.capitalize(Locale.ENGLISH) ?: "User"}",
                     modifier = Modifier.align(
                         Alignment.CenterStart
                     ),
@@ -95,38 +112,38 @@ class MoreFragment: HomeBaseFragment() {
                 LoginStateButton()
             }
         }
-        if(moreViewModel.logoutLiveData.observeAsState().value == true){
+        if (moreViewModel.logoutLiveData.observeAsState().value == true) {
             Toast(message = "Logged Out Successfully!")
         }
     }
 
     @Composable
-    fun BoxScope.LoginStateButton(){
+    fun BoxScope.LoginStateButton() {
         CardButton(
-            text = if(loginState.value) "Logout" else "Login",
-            modifier = Modifier.width(80.dp).align(Alignment.CenterEnd), height = 30){
-              if(loginState.value) {
-                  dialogState.value = true
-              }else{
-                  homeNavController.navigateSafely(HomeFragmentDirections.actionHomeFragmentToMainFragment().setIsOnboarding(false))
-              }
+            text = if (loginState.value) "Logout" else "Login",
+            modifier = Modifier.width(80.dp).align(Alignment.CenterEnd), height = 30) {
+            if (loginState.value) {
+                dialogState.value = true
+            } else {
+                homeNavController.navigateSafely(HomeFragmentDirections.actionHomeFragmentToMainFragment().setIsOnboarding(false))
+            }
             }
     }
 
     @Composable
-    fun WebButton(webRequest: WebRequest){
-        Link(text = webRequest.title, modifier = Modifier.clickable{
-            if(webRequest == WebRequest.LINKED_IN){
+    fun WebButton(webRequest: WebRequest) {
+        Link(text = webRequest.title, modifier = Modifier.clickable {
+            if (webRequest == WebRequest.LINKED_IN) {
                 mainActivity.openURL(webRequest.url)
-            }else {
+            } else {
                 homeNavController.navigateSafely(HomeFragmentDirections.actionHomeFragmentToPlasmaWebView().setWebRequestKey(webRequest.key))
             }
         })
     }
 
     override fun initObservers() {
-        moreViewModel.logoutLiveData.observe(viewLifecycleOwner){
-            if(it == true){
+        moreViewModel.logoutLiveData.observe(viewLifecycleOwner) {
+            if (it == true) {
                 updateUser(-1L)
                 homeNavController.navigateSafely(HomeFragmentDirections.actionHomeFragmentToMainFragmentClearStack())
             }

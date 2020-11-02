@@ -27,10 +27,25 @@ package com.rajankali.plasma.composable
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.preferredHeight
+import androidx.compose.foundation.layout.preferredSize
+import androidx.compose.foundation.layout.preferredWidth
 import androidx.compose.foundation.lazy.LazyColumnForIndexed
 import androidx.compose.foundation.lazy.LazyItemScope
-import androidx.compose.material.*
+import androidx.compose.material.AlertDialog
+import androidx.compose.material.AmbientElevationOverlay
+import androidx.compose.material.AmbientEmphasisLevels
+import androidx.compose.material.Divider
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.ProvideEmphasis
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.livedata.observeAsState
@@ -42,7 +57,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LiveData
 import com.rajankali.plasma.R
 import com.rajankali.plasma.enums.PageState
-import java.util.*
+import java.util.Locale
 
 @Composable
 fun Chip(text: String, icon: Int = -1, onClick: () -> Unit) {
@@ -51,7 +66,7 @@ fun Chip(text: String, icon: Int = -1, onClick: () -> Unit) {
             verticalAlignment = Alignment.CenterVertically
     ) {
         ProvideEmphasis(emphasis = AmbientEmphasisLevels.current.medium) {
-            if(icon != -1) {
+            if (icon != -1) {
                 Image(modifier = Modifier.preferredSize(14.dp, 14.dp), asset = vectorResource(id = icon), colorFilter = OnSurfaceTint())
             }
             Spacer(Modifier.preferredWidth(4.dp))
@@ -61,17 +76,17 @@ fun Chip(text: String, icon: Int = -1, onClick: () -> Unit) {
 }
 
 @Composable
-fun OnSurfaceTint(): ColorFilter{
+fun OnSurfaceTint(): ColorFilter {
     return ColorFilter.tint(MaterialTheme.colors.onSurface)
 }
 
 @Composable
-fun IconText(text: String, icon: Int = -1, onClick: () -> Unit = {}){
+fun IconText(text: String, icon: Int = -1, onClick: () -> Unit = {}) {
     Row(
             modifier = Modifier.padding(start = 8.dp, top = 4.dp, end = 8.dp, bottom = 4.dp).clickable(onClick = { onClick() }),
             verticalAlignment = Alignment.CenterVertically
     ) {
-        if(icon != -1) {
+        if (icon != -1) {
             Image(modifier = Modifier.preferredSize(16.dp, 16.dp), asset = vectorResource(id = icon), colorFilter = OnSurfaceTint())
         }
         Spacer(Modifier.preferredWidth(8.dp))
@@ -81,33 +96,33 @@ fun IconText(text: String, icon: Int = -1, onClick: () -> Unit = {}){
 
 @Composable
 fun <T> LazyGridFor(
-        items: List<T> = listOf(),
-        rows: Int = 3,
-        hPadding: Int = 8,
-        itemContent: @Composable LazyItemScope.(T, Int) -> Unit
+    items: List<T> = listOf(),
+    rows: Int = 3,
+    hPadding: Int = 8,
+    itemContent: @Composable LazyItemScope.(T, Int) -> Unit
 ) {
     val chunkedList = items.chunked(rows)
     LazyColumnForIndexed(items = chunkedList, modifier = Modifier.padding(horizontal = hPadding.dp)) { index, it ->
-        if(index == 0) {
+        if (index == 0) {
             columnSpacer(value = 8)
         }
 
         Row {
             it.forEachIndexed { rowIndex, item ->
-                Box(modifier = Modifier.weight( 1F).align(Alignment.Top).padding(8.dp), alignment = Alignment.Center){
+                Box(modifier = Modifier.weight(1F).align(Alignment.Top).padding(8.dp), alignment = Alignment.Center) {
                     itemContent(item, index * rowIndex + rowIndex + 1)
                 }
             }
-            repeat(rows - it.size){
-                Box(modifier = Modifier.weight( 1F).padding(8.dp)) {}
+            repeat(rows - it.size) {
+                Box(modifier = Modifier.weight(1F).padding(8.dp)) {}
             }
         }
     }
 }
 
 @Composable
-fun Dialog(state: MutableState<Boolean>,title: String, desc: String, pText: String,onClick: () -> Unit){
-    if(state.value){
+fun Dialog(state: MutableState<Boolean>, title: String, desc: String, pText: String, onClick: () -> Unit) {
+    if (state.value) {
         val bgColor = MaterialTheme.colors.surface
         AlertDialog(title = { H6(text = title) }, text = { Body2(text = desc) }, buttons = {
             Row(modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp, end = 16.dp), horizontalArrangement = Arrangement.End) {
@@ -120,25 +135,27 @@ fun Dialog(state: MutableState<Boolean>,title: String, desc: String, pText: Stri
                     onClick()
                 }))
             }
-        }, onDismissRequest = { state.value = false }, backgroundColor = AmbientElevationOverlay.current?.apply(bgColor, 25.dp)?:bgColor)
+        }, onDismissRequest = { state.value = false }, backgroundColor = AmbientElevationOverlay.current?.apply(bgColor, 25.dp) ?: bgColor)
     }
 }
 
 @Composable
-fun ColumnLine(modifier: Modifier = Modifier){
+fun ColumnLine(modifier: Modifier = Modifier) {
     columnSpacer(value = 8)
     Divider(modifier = modifier.preferredHeight((0.8).dp).fillMaxWidth(), color = MaterialTheme.colors.onSurface.copy(alpha = 0.3F))
     columnSpacer(value = 8)
 }
 
 @Composable
-fun handleState(pageStateLiveData: LiveData<PageState>,
-                IdleView: @Composable () -> Unit = { },
-                errorMessage: String = "Oops! Something went wrong, Please try again after some time",
-                emptyMessage: String = "Nothing in here Yet!, Please comeback later",
-                content: @Composable () -> Unit){
+fun handleState(
+    pageStateLiveData: LiveData<PageState>,
+    IdleView: (@Composable () -> Unit) = { },
+    errorMessage: String = "Oops! Something went wrong, Please try again after some time",
+    emptyMessage: String = "Nothing in here Yet!, Please comeback later",
+    content: @Composable () -> Unit
+) {
     val pageState = pageStateLiveData.observeAsState(initial = PageState.IDLE)
-    when(pageState.value){
+    when (pageState.value) {
         PageState.LOADING -> {
             LoadingView()
         }
@@ -152,13 +169,13 @@ fun handleState(pageStateLiveData: LiveData<PageState>,
             EmptyView(emptyMessage)
         }
         PageState.IDLE -> {
-            IdleView()
+            IdleView.invoke()
         }
     }
 }
 
 @Composable
-fun ToolBar(title: String, onBackClick: () -> Unit){
+fun ToolBar(title: String, onBackClick: () -> Unit) {
     val bgColor = MaterialTheme.colors.surface
     TopAppBar(title = { H6(text = title) },
             navigationIcon = {

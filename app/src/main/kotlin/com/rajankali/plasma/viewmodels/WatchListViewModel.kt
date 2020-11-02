@@ -34,7 +34,7 @@ import com.rajankali.plasma.data.repo.MovieRepo
 import com.rajankali.plasma.enums.PageState
 import kotlinx.coroutines.launch
 
-class WatchListViewModel @ViewModelInject constructor(private val movieRepo: MovieRepo): ViewModel() {
+class WatchListViewModel @ViewModelInject constructor(private val movieRepo: MovieRepo) : ViewModel() {
 
     private val _watchListLiveData = MutableLiveData<List<Movie>>()
 
@@ -47,13 +47,13 @@ class WatchListViewModel @ViewModelInject constructor(private val movieRepo: Mov
 
     private var loggedInUserId = -1L
 
-    fun fetchWatchList(userId: Long)= viewModelScope.launch{
+    fun fetchWatchList(userId: Long) = viewModelScope.launch {
         _pageStateLiveData.postValue(PageState.LOADING)
         loggedInUserId = userId
         val result = movieRepo.fetchWatchList(loggedInUserId)
-        if(result.isEmpty()){
+        if (result.isEmpty()) {
             _pageStateLiveData.postValue(PageState.EMPTY)
-        }else{
+        } else {
             _pageStateLiveData.postValue(PageState.DATA)
         }
         _watchListLiveData.postValue(result)
@@ -61,9 +61,8 @@ class WatchListViewModel @ViewModelInject constructor(private val movieRepo: Mov
 
     fun removeFromWatchList(movieId: Int) = viewModelScope.launch {
         val result = movieRepo.removeMovieFromWatchList(movieId, loggedInUserId)
-        if(result > 0){
+        if (result > 0) {
             fetchWatchList(loggedInUserId)
         }
     }
-
 }

@@ -32,9 +32,9 @@ import com.rajankali.plasma.enums.MediaType
 import com.rajankali.plasma.enums.TimeWindow
 
 interface MovieRepoContract {
-    suspend fun fetchTrendingMovies(page: Int, mediaType: MediaType, timeWindow: TimeWindow) : ApiResult<PagedResponse<Movie?>>
+    suspend fun fetchTrendingMovies(page: Int, mediaType: MediaType, timeWindow: TimeWindow): ApiResult<PagedResponse<Movie?>>
 
-    suspend fun addMovieToWatchList(movie: Movie, userId: Long) : Long
+    suspend fun addMovieToWatchList(movie: Movie, userId: Long): Long
 
     suspend fun removeMovieFromWatchList(movieId: Int, userId: Long): Int
 
@@ -46,7 +46,7 @@ interface MovieRepoContract {
 
     suspend fun recentSearches(): List<String>
 
-    suspend fun search(query: String, page: Int) : ApiResult<PagedResponse<Movie?>>
+    suspend fun search(query: String, page: Int): ApiResult<PagedResponse<Movie?>>
 
     suspend fun cast(movie: Movie): ApiResult<CreditResponse>
 }

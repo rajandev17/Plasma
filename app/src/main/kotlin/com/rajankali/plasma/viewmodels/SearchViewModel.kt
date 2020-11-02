@@ -42,7 +42,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 @ExperimentalCoroutinesApi
-class SearchViewModel @ViewModelInject constructor(private val movieRepo: MovieRepoContract): ViewModel() {
+class SearchViewModel @ViewModelInject constructor(private val movieRepo: MovieRepoContract) : ViewModel() {
 
     private val _searchShowsStateFlow = MutableStateFlow(LatestData<Movie>(emptyList()))
     val searchShowStateFlow: StateFlow<LatestData<Movie>>
@@ -67,22 +67,22 @@ class SearchViewModel @ViewModelInject constructor(private val movieRepo: MovieR
     }
 
     fun search(query: String) = viewModelScope.launch {
-        if(searchQuery != query){
+        if (searchQuery != query) {
             _searchShowsStateFlow.value = LatestData(emptyList())
             page = 1
             totalPages = 1
         }
-         searchQuery = query
-         if(movieRepo.addSearchTerm(query) != -1L) {
-             _recentSearchLiveData.postValue(movieRepo.recentSearches())
-         }
-        if(page == 1){
+        searchQuery = query
+        if (movieRepo.addSearchTerm(query) != -1L) {
+            _recentSearchLiveData.postValue(movieRepo.recentSearches())
+        }
+        if (page == 1) {
             _pageStateLiveData.postValue(PageState.LOADING)
         }
-        when(val result = movieRepo.search(page = page,query = query)){
+        when (val result = movieRepo.search(page = page, query = query)) {
             is Success -> {
                 totalPages = result.data.totalPages
-                if(page == 1) {
+                if (page == 1) {
                     _pageStateLiveData.postValue(PageState.DATA)
                 }
                 page++
@@ -94,8 +94,8 @@ class SearchViewModel @ViewModelInject constructor(private val movieRepo: MovieR
         }
     }
 
-    fun nextPage(){
-        if(page <= totalPages){
+    fun nextPage() {
+        if (page <= totalPages) {
             search(searchQuery)
         }
     }
@@ -106,5 +106,4 @@ class SearchViewModel @ViewModelInject constructor(private val movieRepo: MovieR
         totalPages = 1
         _pageStateLiveData.postValue(PageState.IDLE)
     }
-
 }

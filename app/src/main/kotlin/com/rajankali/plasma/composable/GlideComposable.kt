@@ -51,13 +51,13 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-//reference https://github.com/mvarnagiris/compose-glide-image/blob/master/compose-glide-image/src/main/java/com/koduok/compose/glideimage/GlideImage.kt
+// reference https://github.com/mvarnagiris/compose-glide-image/blob/master/compose-glide-image/src/main/java/com/koduok/compose/glideimage/GlideImage.kt
 @Composable
 fun GlideImage(
-        modifier: Modifier = Modifier.matchParent(),
-        model: Any,
-        onImageReady: (() -> Unit)? = null,
-        customize: RequestBuilder<Bitmap>.() -> RequestBuilder<Bitmap> = { this }
+    modifier: Modifier = Modifier.matchParent(),
+    model: Any,
+    onImageReady: (() -> Unit)? = null,
+    customize: RequestBuilder<Bitmap>.() -> RequestBuilder<Bitmap> = { this }
 ) {
     Box(modifier = modifier) {
         WithConstraints {

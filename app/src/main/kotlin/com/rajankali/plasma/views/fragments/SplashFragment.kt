@@ -38,32 +38,32 @@ import com.rajankali.core.storage.PlasmaPrefs
 import com.rajankali.plasma.composable.Title
 import com.rajankali.plasma.utils.navigateSafely
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
 @AndroidEntryPoint
-class SplashFragment: BaseFragment() {
+class SplashFragment : BaseFragment() {
 
     @Inject
     lateinit var plasmaPrefs: PlasmaPrefs
 
     @Composable
-    override fun setContent(){
-        Column(modifier = Modifier.matchParent().background(MaterialTheme.colors.surface),horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center){
+    override fun setContent() {
+        Column(modifier = Modifier.matchParent().background(MaterialTheme.colors.surface), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
             Title(mutableStateOf("P"))
         }
         lifecycleScope.launch {
             delay(1000)
             val loggedInUser = withContext(Dispatchers.IO) { plasmaPrefs.userId() }
-            if(loggedInUser != -1L) {
+            if (loggedInUser != -1L) {
                 navController.navigateSafely(
                     SplashFragmentDirections.actionSplashFragmentToHomeFragment()
                         .setLoggedInUserId(loggedInUser)
                 )
-            }else{
+            } else {
                 navController.navigateSafely(SplashFragmentDirections.actionSplashFragmentToMainFragment())
             }
         }

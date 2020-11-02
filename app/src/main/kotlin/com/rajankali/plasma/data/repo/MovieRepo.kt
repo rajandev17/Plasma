@@ -35,15 +35,17 @@ import com.rajankali.plasma.enums.MediaType
 import com.rajankali.plasma.enums.TimeWindow
 import javax.inject.Inject
 
-class MovieRepo @Inject constructor(private val movieApi: MovieApi,
-                                    private val movieDao: MovieDao,
-                                    private val recentSearchDao: RecentSearchDao) : MovieRepoContract {
+class MovieRepo @Inject constructor(
+    private val movieApi: MovieApi,
+    private val movieDao: MovieDao,
+    private val recentSearchDao: RecentSearchDao
+) : MovieRepoContract {
 
-    override suspend fun fetchTrendingMovies(page: Int,mediaType: MediaType, timeWindow: TimeWindow) =
-            handleApi( { movieApi.trendingMovies(page = page, mediaType = mediaType.type,timeWindow =  timeWindow.window) })
+    override suspend fun fetchTrendingMovies(page: Int, mediaType: MediaType, timeWindow: TimeWindow) =
+            handleApi({ movieApi.trendingMovies(page = page, mediaType = mediaType.type, timeWindow = timeWindow.window) })
 
     override suspend fun search(query: String, page: Int) =
-            handleApi( { movieApi.search(query, page) })
+            handleApi({ movieApi.search(query, page) })
 
     override suspend fun addMovieToWatchList(movie: Movie, userId: Long): Long {
         return movieDao.addToWatchList(movie.apply {
@@ -65,10 +67,10 @@ class MovieRepo @Inject constructor(private val movieApi: MovieApi,
 
     override suspend fun addSearchTerm(term: String): Long {
         val recentSearches = recentSearches()
-        if(recentSearches.contains(term)){
+        if (recentSearches.contains(term)) {
             return -1
         }
-        if(recentSearches.size == 10){
+        if (recentSearches.size == 10) {
             recentSearchDao.removeSearch(recentSearches[9])
         }
         return recentSearchDao.insertSearch(RecentSearch(term, now()))
@@ -78,5 +80,5 @@ class MovieRepo @Inject constructor(private val movieApi: MovieApi,
         return recentSearchDao.recentSearches()
     }
 
-    override suspend fun cast(movie: Movie) = handleApi( { movieApi.credits(movie.mediaType, movie.id) } )
+    override suspend fun cast(movie: Movie) = handleApi({ movieApi.credits(movie.mediaType, movie.id) })
 }

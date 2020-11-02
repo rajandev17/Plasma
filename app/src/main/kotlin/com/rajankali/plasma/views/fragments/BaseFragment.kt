@@ -42,13 +42,13 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 
-abstract class BaseFragment : Fragment(){
+abstract class BaseFragment : Fragment() {
 
     protected val uiScope = CoroutineScope(Dispatchers.Main)
     protected val ioScope = CoroutineScope(Dispatchers.IO)
 
     @Composable
-    open fun setContent(){}
+    open fun setContent() {}
 
     open val layoutId: Int = -1
 
@@ -56,13 +56,13 @@ abstract class BaseFragment : Fragment(){
     protected val loggedUserId by lazy { mainActivity.loggedInUserId }
     protected val loginState by lazy { mainActivity.loginState }
 
-    protected val navController by lazy {  Navigation.findNavController(requireView()) }
+    protected val navController by lazy { Navigation.findNavController(requireView()) }
 
-    protected fun fullScreen(){
+    protected fun fullScreen() {
         requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
     }
 
-    protected fun exitFullScreen(){
+    protected fun exitFullScreen() {
         requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
     }
 
@@ -74,7 +74,7 @@ abstract class BaseFragment : Fragment(){
         arguments?.let {
             onArgumentsReady(it)
         }
-        return if(layoutId == -1) {
+        return if (layoutId == -1) {
             ComposeView(requireContext()).apply {
                 setContent {
                     PlasmaTheme {
@@ -86,16 +86,16 @@ abstract class BaseFragment : Fragment(){
                     }
                 }
             }
-        }else{
+        } else {
             inflater.inflate(layoutId, container, false)
         }
     }
 
-    protected fun updateUser(userId: Long){
+    protected fun updateUser(userId: Long) {
         (requireActivity() as MainActivity).loggedInUserId = userId
     }
 
-    protected fun <T: View> view(id: Int): T?{
+    protected fun <T : View> view(id: Int): T? {
         return view?.findViewById<T>(id)
     }
 
@@ -105,9 +105,9 @@ abstract class BaseFragment : Fragment(){
         initObservers()
     }
 
-    open fun initViews(){}
-    open fun initObservers(){}
-    open fun onArgumentsReady(bundle: Bundle){}
+    open fun initViews() {}
+    open fun initObservers() {}
+    open fun onArgumentsReady(bundle: Bundle) {}
 
     override fun onStop() {
         super.onStop()

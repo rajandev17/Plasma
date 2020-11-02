@@ -29,7 +29,16 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.preferredHeight
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.AmbientEmphasisLevels
 import androidx.compose.material.Divider
@@ -54,10 +63,18 @@ import com.rajankali.core.data.Cast
 import com.rajankali.core.data.Movie
 import com.rajankali.core.extensions.toast
 import com.rajankali.plasma.R
-import com.rajankali.plasma.composable.*
+import com.rajankali.plasma.composable.GridItem
+import com.rajankali.plasma.composable.H6
+import com.rajankali.plasma.composable.LazyGridFor
+import com.rajankali.plasma.composable.MovieMetadata
+import com.rajankali.plasma.composable.columnSpacer
+import com.rajankali.plasma.composable.handleState
+import com.rajankali.plasma.composable.kenBunsView
 import com.rajankali.plasma.viewmodels.MovieDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.*
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MovieDetailFragment : BaseFragment() {
@@ -111,7 +128,6 @@ class MovieDetailFragment : BaseFragment() {
         val castListState = castLiveData.observeAsState(emptyList())
         LazyGridFor(items = castListState.value) { cast, _ ->
             GridItem(cast = cast) {
-
             }
         }
     }
@@ -196,5 +212,4 @@ class MovieDetailFragment : BaseFragment() {
                 MaterialTheme.colors.surface.copy(alpha = 0.7F),
                 Color.Transparent)
     }
-
 }

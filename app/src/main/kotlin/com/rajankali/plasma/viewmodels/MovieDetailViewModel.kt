@@ -38,8 +38,10 @@ import com.rajankali.plasma.data.repo.MovieRepo
 import com.rajankali.plasma.enums.PageState
 import kotlinx.coroutines.launch
 
-class MovieDetailViewModel @ViewModelInject constructor(private val movieRepo: MovieRepo,
-                                                        private val plasmaPrefs: PlasmaPrefs) : ViewModel() {
+class MovieDetailViewModel @ViewModelInject constructor(
+    private val movieRepo: MovieRepo,
+    private val plasmaPrefs: PlasmaPrefs
+) : ViewModel() {
 
     private val _watchListLiveData = MutableLiveData<Boolean>()
     val watchListLiveData: LiveData<Boolean> get() = _watchListLiveData
@@ -68,12 +70,12 @@ class MovieDetailViewModel @ViewModelInject constructor(private val movieRepo: M
 
     fun cast(movie: Movie) = viewModelScope.launch {
         _pageStateLiveData.postValue(PageState.LOADING)
-        when(val result = movieRepo.cast(movie = movie)){
-            is Success ->{
+        when (val result = movieRepo.cast(movie = movie)) {
+            is Success -> {
                 _pageStateLiveData.postValue(PageState.DATA)
                 _castLiveData.postValue(result.data.cast)
             }
-            is Failure ->{
+            is Failure -> {
                 _pageStateLiveData.postValue(PageState.ERROR)
             }
         }

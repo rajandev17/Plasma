@@ -25,7 +25,11 @@
 package com.rajankali.plasma.views.fragments
 
 import androidx.compose.foundation.Text
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.runtime.Composable
@@ -50,14 +54,13 @@ import com.rajankali.plasma.utils.navigateSafely
 import com.rajankali.plasma.viewmodels.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
-
 @AndroidEntryPoint
-class RegisterFragment: BaseFragment() {
+class RegisterFragment : BaseFragment() {
 
     private val registerViewModel: RegisterViewModel by viewModels()
 
     @Composable
-    override fun setContent(){
+    override fun setContent() {
         Box(Modifier.matchParent()) {
             Column(
                 modifier = Modifier.fillMaxWidth().align(Alignment.Center).padding(16.dp)
@@ -82,16 +85,16 @@ class RegisterFragment: BaseFragment() {
                     isErrorValue = userNameErrorState.value != null,
                     errorColor = MaterialTheme.colors.error)
                     Text(
-                        text = userNameErrorState.value?:"",
+                        text = userNameErrorState.value ?: "",
                         textAlign = TextAlign.Start,
                         fontSize = TextUnit(12),
-                        modifier = Modifier.height(userNameErrorState.value?.let { 20.dp }?:0.dp),
+                        modifier = Modifier.height(userNameErrorState.value?.let { 20.dp } ?: 0.dp),
                         color = MaterialTheme.colors.error)
                 columnSpacer(value = 16)
 
                 val password = remember { mutableStateOf(TextFieldValue("chandana")) }
                 OutlinedTextField(value = password.value,
-                    onValueChange = { password.value = it},
+                    onValueChange = { password.value = it },
                     label = { Text("Password") },
                     modifier = Modifier.fillMaxWidth(),
                     visualTransformation = PasswordVisualTransformation(),
@@ -99,10 +102,10 @@ class RegisterFragment: BaseFragment() {
                     errorColor = MaterialTheme.colors.error
                 )
                 Text(
-                    text = passwordErrorState.value?:"",
+                    text = passwordErrorState.value ?: "",
                     textAlign = TextAlign.Start,
                     fontSize = TextUnit(12),
-                    modifier = Modifier.height(passwordErrorState.value?.let { 20.dp }?:0.dp),
+                    modifier = Modifier.height(passwordErrorState.value?.let { 20.dp } ?: 0.dp),
                     color = MaterialTheme.colors.error)
                 columnSpacer(value = 30)
 
@@ -112,7 +115,7 @@ class RegisterFragment: BaseFragment() {
             }
         }
 
-        registerViewModel.registrationResultLiveData.observe(viewLifecycleOwner){
+        registerViewModel.registrationResultLiveData.observe(viewLifecycleOwner) {
             toast("Registration Success!")
             updateUser(userId = it)
             navController.navigateSafely(RegisterFragmentDirections.actionRegisterFragmentToHomeFragment().setLoggedInUserId(it))

@@ -51,7 +51,7 @@ class TrendingFragment : HomeBaseFragment() {
     private val trendingViewModel: TrendingViewModel by viewModels()
 
     @Composable
-    override fun setContent(){
+    override fun setContent() {
         handleState(pageStateLiveData = trendingViewModel.pageStateLiveData) {
             val trendingData = trendingViewModel.trendingLiveData.observeAsState(initial = mapOf())
             ScrollableColumn {
@@ -60,12 +60,12 @@ class TrendingFragment : HomeBaseFragment() {
                     MovieSection(entry = it)
                 }
                 Log.d("Trending", trendingData.value.toString())
-           }
+            }
         }
     }
 
     @Composable
-    fun MovieSection(entry: Map.Entry<String, List<Movie>>){
+    fun MovieSection(entry: Map.Entry<String, List<Movie>>) {
         columnSpacer(value = 8)
         Text(text = entry.key, modifier = Modifier.padding(start = 16.dp, bottom = 8.dp), style = MaterialTheme.typography.h6)
         LazyRowForIndexed(items = entry.value) { index, movie ->

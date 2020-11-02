@@ -54,7 +54,6 @@ object StorageModule {
     @Singleton
     fun providesMovieDao(plasmaDB: PlasmaDB) = plasmaDB.movieDao
 
-
     @Provides
     @Singleton
     fun providesRecentSearchDao(plasmaDB: PlasmaDB) = plasmaDB.recentSearchDao

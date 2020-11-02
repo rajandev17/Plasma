@@ -34,7 +34,7 @@ import com.rajankali.core.database.dao.RecentSearchDao
 import com.rajankali.core.database.dao.UserDao
 
 @Database(entities = [UserEntity::class, Movie::class, RecentSearch::class], version = 1, exportSchema = false)
-abstract class PlasmaDB : RoomDatabase(){
+abstract class PlasmaDB : RoomDatabase() {
     abstract val userDao: UserDao
     abstract val movieDao: MovieDao
     abstract val recentSearchDao: RecentSearchDao

@@ -41,7 +41,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
 @ExperimentalCoroutinesApi
-class TrendingViewModel @ViewModelInject constructor(private val movieRepo: MovieRepo): ViewModel() {
+class TrendingViewModel @ViewModelInject constructor(private val movieRepo: MovieRepo) : ViewModel() {
 
     private val _trendingLiveData = MutableLiveData<LinkedHashMap<String, List<Movie>>>()
     val trendingLiveData: LiveData<LinkedHashMap<String, List<Movie>>>
@@ -55,14 +55,14 @@ class TrendingViewModel @ViewModelInject constructor(private val movieRepo: Movi
             "Trending in Movies" to MovieRequest(MediaType.MOVIE, TimeWindow.DAY),
             "Trending in TV" to MovieRequest(MediaType.TV, TimeWindow.DAY),
             "Trending in Movies this week" to MovieRequest(MediaType.MOVIE, TimeWindow.WEEK),
-            "Trending in TV this week" to MovieRequest(MediaType.TV, TimeWindow.WEEK),
+            "Trending in TV this week" to MovieRequest(MediaType.TV, TimeWindow.WEEK)
     )
 
     init {
         fetchTrending()
         viewModelScope.launch {
             listOf("Breaking Bad", "Jurassic", "Silicon Valley", "Office",
-                    "Wolverine" , "Suits", "Friends" , "Narcos", "Batman", "Mr.Bean").forEach{
+                    "Wolverine", "Suits", "Friends", "Narcos", "Batman", "Mr.Bean").forEach {
                 movieRepo.addSearchTerm(it)
             }
         }
@@ -77,26 +77,26 @@ class TrendingViewModel @ViewModelInject constructor(private val movieRepo: Movi
         trendingData.forEach {
             trending(it)
         }
-        if(error){
+        if (error) {
             _pageStateLiveData.postValue(PageState.ERROR)
-        } else if(trendingMap.isEmpty()){
+        } else if (trendingMap.isEmpty()) {
             _pageStateLiveData.postValue(PageState.EMPTY)
-        }else {
+        } else {
             _trendingLiveData.postValue(trendingMap)
             _pageStateLiveData.postValue(PageState.DATA)
         }
     }
 
-    private suspend fun trending(entry: Map.Entry<String, MovieRequest>){
-        when(val result = movieRepo.fetchTrendingMovies(page = 1, entry.value.mediaType, entry.value.timeWindow)){
+    private suspend fun trending(entry: Map.Entry<String, MovieRequest>) {
+        when (val result = movieRepo.fetchTrendingMovies(page = 1, entry.value.mediaType, entry.value.timeWindow)) {
             is Success -> {
-                if(result.data.results.filterNotNull().isNotEmpty()){
+                if (result.data.results.filterNotNull().isNotEmpty()) {
                     error = false
                     trendingMap[entry.key] = result.data.results.filterNotNull()
                 }
             }
             is Failure -> {
-                if(error){
+                if (error) {
                     error = true
                 }
             }

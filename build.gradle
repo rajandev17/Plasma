@@ -24,13 +24,30 @@ buildscript {
     }
 }
 
+plugins {
+    id 'com.diffplug.gradle.spotless' version '3.26.1'
+}
+
+subprojects{
+    apply plugin: 'com.diffplug.gradle.spotless'
+    spotless {
+        kotlin {
+            target '**/*.kt'
+            ktlint('0.36.0')
+            targetExclude('**/composable/*.kt')
+            licenseHeaderFile rootProject.file('scripts/copyright.kt')
+        }
+    }
+    if (project.hasProperty( "kapt" )) {
+        kapt {
+            useBuildCache = true
+        }
+    }
+}
+
 allprojects {
     repositories {
         google()
         jcenter()
     }
-}
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
 }

@@ -84,7 +84,7 @@ private val plasmaFontFamily = fontFamily(
                         resId = R.font.ps_extra_bold_italic,
                         weight = FontWeight.W700,
                         style = FontStyle.Italic
-                ),
+                )
         )
 )
 

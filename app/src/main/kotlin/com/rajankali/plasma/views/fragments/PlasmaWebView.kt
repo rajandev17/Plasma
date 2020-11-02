@@ -41,7 +41,7 @@ import com.rajankali.plasma.composable.LoadingView
 import com.rajankali.plasma.composable.ToolBar
 import com.rajankali.plasma.enums.WebRequest
 
-class PlasmaWebView: BaseFragment() {
+class PlasmaWebView : BaseFragment() {
 
     private lateinit var webRequest: WebRequest
 
@@ -53,7 +53,7 @@ class PlasmaWebView: BaseFragment() {
 
     @SuppressLint("SetJavaScriptEnabled")
     @Composable
-    override fun setContent(){
+    override fun setContent() {
         val context = ContextAmbient.current
         val webView = remember { WebView(context).apply {
             settings.domStorageEnabled = true
@@ -61,21 +61,21 @@ class PlasmaWebView: BaseFragment() {
             settings.allowFileAccess = true
             settings.cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK
             settings.javaScriptEnabled = true
-        }}.apply {
-            webChromeClient = object : WebChromeClient(){
+        } }.apply {
+            webChromeClient = object : WebChromeClient() {
                 override fun onProgressChanged(view: WebView?, newProgress: Int) {
-                    if(newProgress > 90) {
+                    if (newProgress > 90) {
                         progressState.value = false
                     }
                 }
             }
             loadUrl(webRequest.url)
         }
-        Scaffold(topBar = { ToolBar(title = webRequest.title){ mainActivity.onBackPressed() } }) {
-            if(progressState.value){
+        Scaffold(topBar = { ToolBar(title = webRequest.title) { mainActivity.onBackPressed() } }) {
+            if (progressState.value) {
                 LoadingView()
-            }else{
-                AndroidView( { webView }, modifier = Modifier.fillMaxSize())
+            } else {
+                AndroidView({ webView }, modifier = Modifier.fillMaxSize())
             }
         }
     }

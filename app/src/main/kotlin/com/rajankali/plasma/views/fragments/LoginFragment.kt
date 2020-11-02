@@ -25,7 +25,11 @@
 package com.rajankali.plasma.views.fragments
 
 import androidx.compose.foundation.Text
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.runtime.Composable
@@ -42,11 +46,14 @@ import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
 import com.rajankali.core.extensions.matchParent
 import com.rajankali.core.extensions.toast
-import com.rajankali.plasma.composable.*
+import com.rajankali.plasma.composable.CardButton
+import com.rajankali.plasma.composable.CenteredCaption
+import com.rajankali.plasma.composable.H6
+import com.rajankali.plasma.composable.Title
+import com.rajankali.plasma.composable.columnSpacer
 import com.rajankali.plasma.utils.navigateSafely
 import com.rajankali.plasma.viewmodels.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
-
 
 @AndroidEntryPoint
 class LoginFragment : BaseFragment() {
@@ -54,7 +61,7 @@ class LoginFragment : BaseFragment() {
     private val loginViewModel: LoginViewModel by viewModels()
 
     @Composable
-    override fun setContent(){
+    override fun setContent() {
         Box(Modifier.matchParent()) {
             Column(
                 modifier = Modifier.fillMaxWidth().align(Alignment.Center).padding(16.dp)
@@ -78,16 +85,16 @@ class LoginFragment : BaseFragment() {
                     isErrorValue = userNameErrorState.value != null,
                     errorColor = MaterialTheme.colors.error)
                 Text(
-                    text = userNameErrorState.value?:"",
+                    text = userNameErrorState.value ?: "",
                     textAlign = TextAlign.Start,
                     fontSize = TextUnit(12),
-                    modifier = Modifier.height(userNameErrorState.value?.let { 20.dp }?:0.dp),
+                    modifier = Modifier.height(userNameErrorState.value?.let { 20.dp } ?: 0.dp),
                     color = MaterialTheme.colors.error)
                 columnSpacer(value = 16)
 
                 val password = remember { mutableStateOf(TextFieldValue("chandana")) }
                 OutlinedTextField(value = password.value,
-                    onValueChange = { password.value = it},
+                    onValueChange = { password.value = it },
                     label = { Text("Password") },
                     modifier = Modifier.fillMaxWidth(),
                     visualTransformation = PasswordVisualTransformation(),
@@ -95,10 +102,10 @@ class LoginFragment : BaseFragment() {
                     errorColor = MaterialTheme.colors.error
                 )
                 Text(
-                    text = passwordErrorState.value?:"",
+                    text = passwordErrorState.value ?: "",
                     textAlign = TextAlign.Start,
                     fontSize = TextUnit(12),
-                    modifier = Modifier.height(passwordErrorState.value?.let { 20.dp }?:0.dp),
+                    modifier = Modifier.height(passwordErrorState.value?.let { 20.dp } ?: 0.dp),
                     color = MaterialTheme.colors.error)
                 columnSpacer(value = 30)
 
@@ -107,11 +114,11 @@ class LoginFragment : BaseFragment() {
                 })
             }
         }
-        loginViewModel.loginResultLiveData.observe(viewLifecycleOwner){
-            if(it != -1L) {
+        loginViewModel.loginResultLiveData.observe(viewLifecycleOwner) {
+            if (it != -1L) {
                 updateUser(userId = it)
                 navController.navigateSafely(LoginFragmentDirections.actionLoginFragmentToHomeFragment().setLoggedInUserId(it))
-            }else{
+            } else {
                 toast("Invalid Credentials!")
             }
         }

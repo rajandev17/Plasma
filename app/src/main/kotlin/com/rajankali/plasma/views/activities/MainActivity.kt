@@ -60,12 +60,9 @@ class MainActivity : BaseActivity() {
         mainActivityViewModel.verifyLogin()
     }
 
-    fun openURL(url: String){
+    fun openURL(url: String) {
         startActivity(Intent(Intent.ACTION_VIEW).apply {
             data = Uri.parse(url)
         })
     }
-
 }
-
-

@@ -25,9 +25,9 @@
 package com.rajankali.core.network
 
 import com.google.gson.JsonSyntaxException
+import java.io.IOException
 import org.json.JSONObject
 import retrofit2.Response
-import java.io.IOException
 
 var isConnectedToNetwork = true
 
@@ -45,9 +45,9 @@ suspend fun <T : Any> handleApi(
         }
         response.errorBody()?.let {
             return try {
-                val errorString  = it.string()
+                val errorString = it.string()
                 val errorObject = JSONObject(errorString)
-                Failure(errorObject.getString("status_message")?:errorMessage)
+                Failure(errorObject.getString("status_message") ?: errorMessage)
             } catch (ignored: JsonSyntaxException) {
                 Failure(ignored.message)
             }
@@ -57,6 +57,6 @@ suspend fun <T : Any> handleApi(
         if (e is IOException) {
             isConnectedToNetwork = false
         }
-        return Failure(e.message?:errorMessage)
+        return Failure(e.message ?: errorMessage)
     }
 }

@@ -29,12 +29,12 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
+import javax.inject.Singleton
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Singleton
 
 @Module
 @InstallIn(ApplicationComponent::class)
@@ -46,14 +46,14 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun providesOkHttpClient(authInterceptor: Interceptor): OkHttpClient{
+    fun providesOkHttpClient(authInterceptor: Interceptor): OkHttpClient {
         return OkHttpClient.Builder().addInterceptor(authInterceptor)
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)).build()
     }
 
     @Provides
     @Singleton
-    fun providesAuthInterceptor(): Interceptor{
+    fun providesAuthInterceptor(): Interceptor {
         return Interceptor {
             val newRequest = it.request()
                     .newBuilder()
@@ -64,7 +64,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun providesRetrofitClient(okHttpClient: OkHttpClient): Retrofit{
+    fun providesRetrofitClient(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl(BASE_URL)
@@ -73,7 +73,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun providesMovieApi(retrofit: Retrofit): MovieApi{
+    fun providesMovieApi(retrofit: Retrofit): MovieApi {
         return retrofit.create(MovieApi::class.java)
     }
 }

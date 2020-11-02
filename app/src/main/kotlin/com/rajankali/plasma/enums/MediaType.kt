@@ -29,9 +29,9 @@ enum class MediaType(val type: String) {
     MOVIE("movie"),
     ALL("all");
 
-    companion object{
-        operator fun get(type: String): MediaType{
-            return when(type){
+    companion object {
+        operator fun get(type: String): MediaType {
+            return when (type) {
                 TV.type -> TV
                 MOVIE.type -> MOVIE
                 ALL.type -> ALL

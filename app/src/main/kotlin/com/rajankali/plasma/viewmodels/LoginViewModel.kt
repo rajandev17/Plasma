@@ -50,20 +50,20 @@ class LoginViewModel @ViewModelInject constructor(private val userRepo: UserRepo
     val loginResultLiveData: LiveData<Long>
         get() = _loginResultLiveData
 
-    fun login(username: String, password: String) = viewModelScope.launch{
+    fun login(username: String, password: String) = viewModelScope.launch {
         _userNameErrorLiveData.postValue(null)
         _passwordErrorLiveData.postValue(null)
-        if(username.isEmpty()){
+        if (username.isEmpty()) {
             _userNameErrorLiveData.postValue("Username cannot be empty!")
             return@launch
         }
-        if(password.isEmpty()){
+        if (password.isEmpty()) {
             _passwordErrorLiveData.postValue("Password cannot be empty!")
             return@launch
         }
         val user = User(username, password)
         val loggedInUserId = userRepo.isValidUser(user = user)
-        if(loggedInUserId != -1L) {
+        if (loggedInUserId != -1L) {
             plasmaPrefs.setLoggedInUserId(loggedInUserId)
         }
         _loginResultLiveData.postValue(loggedInUserId)

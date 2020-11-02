@@ -33,8 +33,10 @@ import com.rajankali.core.storage.PlasmaPrefs
 import com.rajankali.plasma.data.repo.UserRepoContract
 import kotlinx.coroutines.launch
 
-class MoreViewModel @ViewModelInject constructor(private val userRepo: UserRepoContract,
-                                                 private val plasmaPrefs: PlasmaPrefs) : ViewModel(){
+class MoreViewModel @ViewModelInject constructor(
+    private val userRepo: UserRepoContract,
+    private val plasmaPrefs: PlasmaPrefs
+) : ViewModel() {
 
     private val _greetingLiveData = MutableLiveData<String>()
     private val _logoutLiveData = MutableLiveData<Boolean>()
@@ -49,11 +51,11 @@ class MoreViewModel @ViewModelInject constructor(private val userRepo: UserRepoC
         _greetingLiveData.postValue("User")
     }
 
-    fun fetchUser(userId: Long) = viewModelScope.launch{
-        _greetingLiveData.postValue(userRepo.fetchUser(userId)?.name?:"User")
+    fun fetchUser(userId: Long) = viewModelScope.launch {
+        _greetingLiveData.postValue(userRepo.fetchUser(userId)?.name ?: "User")
     }
 
-    fun clearPrefs() = viewModelScope.launch{
+    fun clearPrefs() = viewModelScope.launch {
         plasmaPrefs.clear()
         _logoutLiveData.postValue(true)
     }

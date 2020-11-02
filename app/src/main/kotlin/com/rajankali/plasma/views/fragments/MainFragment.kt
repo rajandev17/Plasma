@@ -24,7 +24,6 @@
 
 package com.rajankali.plasma.views.fragments
 
-import android.animation.TypeEvaluator
 import android.animation.ValueAnimator
 import android.os.Bundle
 import android.view.animation.DecelerateInterpolator
@@ -32,7 +31,15 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.offsetPx
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -47,17 +54,22 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.ui.tooling.preview.Preview
+import com.rajankali.core.R as coreR
 import com.rajankali.core.extensions.matchParent
 import com.rajankali.plasma.R
-import com.rajankali.plasma.composable.*
+import com.rajankali.plasma.composable.Body
+import com.rajankali.plasma.composable.CardButton
+import com.rajankali.plasma.composable.CenteredCaption
+import com.rajankali.plasma.composable.OnSurfaceTint
+import com.rajankali.plasma.composable.Title
+import com.rajankali.plasma.composable.columnSpacer
+import com.rajankali.plasma.composable.rowSpacer
 import com.rajankali.plasma.utils.navigateSafely
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import com.rajankali.core.R as coreR
-
 
 @AndroidEntryPoint
 class MainFragment : BaseFragment() {
@@ -77,7 +89,7 @@ class MainFragment : BaseFragment() {
     @Composable
     override fun setContent() {
         Box(modifier = Modifier.matchParent()) {
-            if(!isOnBoarding) {
+            if (!isOnBoarding) {
                 Image(asset = vectorResource(id = R.drawable.ic_baseline_close_24),
                         modifier = Modifier.align(Alignment.TopStart)
                                 .size(56.dp)
@@ -85,7 +97,7 @@ class MainFragment : BaseFragment() {
                                     mainActivity.onBackPressed()
                                 },
                         colorFilter = OnSurfaceTint(),
-                        contentScale = ContentScale . Inside)
+                        contentScale = ContentScale.Inside)
             }
             Column(
                 modifier = Modifier.matchParent().offsetPx(y = titleOffsetState),
@@ -97,8 +109,8 @@ class MainFragment : BaseFragment() {
             Column(Modifier.fillMaxWidth().align(Alignment.Center).offset(y = 50.dp).drawOpacity(alphaState.value)
                 .padding(start = 16.dp, end = 16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally) {
-                //Text(text = "Welcome to Plasma", style = MaterialTheme.typography.h5)
-                //columnSpacer(value = 20)
+                // Text(text = "Welcome to Plasma", style = MaterialTheme.typography.h5)
+                // columnSpacer(value = 20)
                 Body(text = "Almost There!")
                 columnSpacer(value = 10)
                 CenteredCaption(text = "Login/Register to access your watchlist")
@@ -139,7 +151,7 @@ class MainFragment : BaseFragment() {
     }
 
     override fun initViews() {
-        if(!canAnimate) {
+        if (!canAnimate) {
             titleOffsetState.value = -400F
             alphaState.value = 1F
             titleState.value = "Plasma"
@@ -149,7 +161,7 @@ class MainFragment : BaseFragment() {
             delay(200)
             "lasma".forEach {
                 delay(100)
-                withContext(Dispatchers.Main){
+                withContext(Dispatchers.Main) {
                     titleState.value = "${titleState.value}$it"
                 }
             }

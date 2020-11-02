@@ -31,7 +31,6 @@ fun View.visible() = visibility == View.VISIBLE
 fun View.invisible() = visibility == View.INVISIBLE
 fun View.gone() = visibility == View.GONE
 
-
-fun ValueAnimator.intValue(): Int{
+fun ValueAnimator.intValue(): Int {
     return animatedValue as Int
 }

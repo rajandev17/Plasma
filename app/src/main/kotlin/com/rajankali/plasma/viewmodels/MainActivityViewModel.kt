@@ -32,8 +32,7 @@ import androidx.lifecycle.viewModelScope
 import com.rajankali.core.storage.PlasmaPrefs
 import kotlinx.coroutines.launch
 
-
-class MainActivityViewModel @ViewModelInject constructor(private val plasmaPrefs: PlasmaPrefs): ViewModel() {
+class MainActivityViewModel @ViewModelInject constructor(private val plasmaPrefs: PlasmaPrefs) : ViewModel() {
 
     private val _loggedInLiveData = MutableLiveData<Long>()
     val loggedInLiveData: LiveData<Long>
