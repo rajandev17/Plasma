@@ -87,7 +87,8 @@ fun CenteredCaption(text: String, modifier: Modifier = Modifier){
 
 @Composable
 fun Title(textSate: MutableState<String> = mutableStateOf(""), modifier: Modifier = Modifier){
-    Text(text = textSate.value, modifier = modifier, style = titleTextStyle, color = MaterialTheme.colors.primary)
+    Text(text = textSate.value, modifier = modifier,
+        style = titleTextStyle, color = MaterialTheme.colors.primary)
 }
 
 @Composable

@@ -14,7 +14,7 @@
 - Dagger Hilt
 - Navigation UI
 - Single Activity Architecture
-- MVVM Architecture
+- MVVM Pattern
 
 <img src="https://github.com/rajandev17/Plasma/blob/master/screenshots/demo.gif?raw=true" width="300"/>
 

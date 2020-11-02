@@ -42,11 +42,12 @@
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:fontFamily="@font/doodletters"
+            android:fontFamily="@font/title"
             android:gravity="center"
             android:text="@string/app_name"
+            android:letterSpacing="0.1"
             android:textColor="@color/blue"
-            android:textSize="36sp" />
+            android:textSize="30sp" />
     </androidx.cardview.widget.CardView>
 
     <androidx.fragment.app.FragmentContainerView
