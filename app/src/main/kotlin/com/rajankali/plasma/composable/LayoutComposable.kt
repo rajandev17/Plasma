@@ -177,7 +177,7 @@ fun handleState(
 @Composable
 fun ToolBar(title: String, onBackClick: () -> Unit) {
     val bgColor = MaterialTheme.colors.surface
-    TopAppBar(title = { H6(text = title) },
+    TopAppBar(title = { H6(text = title, modifier = Modifier.offset(x = (-20).dp)) },
             navigationIcon = {
                 Image(asset = vectorResource(id = R.drawable.ic_baseline_arrow_back_24), colorFilter = OnSurfaceTint(), modifier = Modifier.offset(x = 12.dp).clickable { onBackClick() })
             }, backgroundColor = AmbientElevationOverlay.current?.apply(bgColor, 25.dp) ?: bgColor)
