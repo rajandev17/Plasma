@@ -116,6 +116,9 @@
         <action
             android:id="@+id/action_homeFragment_to_plasmaWebView"
             app:destination="@id/plasmaWebView" />
+        <action
+            android:id="@+id/action_homeFragment_to_trendingListFragment"
+            app:destination="@id/trendingListFragment" />
     </fragment>
     <fragment
         android:id="@+id/splashFragment"
@@ -153,5 +156,17 @@
             android:autoVerify="true"
             app:action="ACTION_VIEW"
             app:uri="https://www.plasma.app/web/{webRequestKey}" />
+    </fragment>
+    <fragment
+        android:id="@+id/trendingListFragment"
+        android:name="com.rajankali.plasma.views.fragments.TrendingListFragment"
+        android:label="TrendingListFragment">
+        <argument
+            android:name="requestType"
+            android:defaultValue="5"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_trendingListFragment_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment" />
     </fragment>
 </navigation>

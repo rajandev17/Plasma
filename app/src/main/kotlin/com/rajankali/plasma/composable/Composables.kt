@@ -53,7 +53,7 @@ import com.rajankali.plasma.ui.plamsaGradient
 
 @Suppress("unused")
 @Composable
-fun kenBunsView(url: String, modifier: Modifier) {
+fun KenBurnsView(url: String, modifier: Modifier) {
     val kenBuns =  rememberKenBurnsView()
     AndroidView({ kenBuns }, modifier = modifier) {
         it.load(url = url)

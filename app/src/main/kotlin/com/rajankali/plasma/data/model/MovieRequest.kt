@@ -29,3 +29,24 @@ import com.rajankali.plasma.enums.TimeWindow
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 data class MovieRequest @ExperimentalCoroutinesApi constructor(val mediaType: MediaType, val timeWindow: TimeWindow)
+
+@ExperimentalCoroutinesApi
+enum class TrendingMovieRequest(val type: Int, val movieRequest: MovieRequest, val title: String) {
+    MOVIE_TODAY(1, MovieRequest(MediaType.MOVIE, TimeWindow.DAY), "Trending in Movies"),
+    TV_TODAY(2, MovieRequest(MediaType.TV, TimeWindow.DAY), "Trending in TV"),
+    MOVIE_THIS_WEEK(3, MovieRequest(MediaType.MOVIE, TimeWindow.WEEK), "Trending in Movies this week"),
+    TV_THIS_WEEK(4, MovieRequest(MediaType.TV, TimeWindow.WEEK), "Trending in TV this week"),
+    ALL_WEEK(5, MovieRequest(MediaType.ALL, TimeWindow.WEEK), "Trending");
+
+    companion object {
+        operator fun get(type: Int): TrendingMovieRequest {
+            return when (type) {
+                MOVIE_TODAY.type -> MOVIE_TODAY
+                TV_TODAY.type -> TV_TODAY
+                MOVIE_THIS_WEEK.type -> MOVIE_THIS_WEEK
+                TV_THIS_WEEK.type -> TV_THIS_WEEK
+                else -> ALL_WEEK
+            }
+        }
+    }
+}

@@ -65,11 +65,11 @@ import com.rajankali.core.extensions.toast
 import com.rajankali.plasma.R
 import com.rajankali.plasma.composable.GridItem
 import com.rajankali.plasma.composable.H6
+import com.rajankali.plasma.composable.KenBurnsView
 import com.rajankali.plasma.composable.LazyGridFor
 import com.rajankali.plasma.composable.MovieMetadata
 import com.rajankali.plasma.composable.columnSpacer
 import com.rajankali.plasma.composable.handleState
-import com.rajankali.plasma.composable.kenBunsView
 import com.rajankali.plasma.viewmodels.MovieDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
@@ -137,7 +137,7 @@ class MovieDetailFragment : BaseFragment() {
         val plamsaSurfaceGradient = backgroundGradient().reversed()
         Box {
             if (animateState.value > 0) {
-                kenBunsView(url = movie.posterImage, modifier = Modifier.fillMaxWidth().aspectRatio(4 / 3F))
+                KenBurnsView(url = movie.posterImage, modifier = Modifier.fillMaxWidth().aspectRatio(4 / 3F))
             }
             WatchListButton()
             WithConstraints {

@@ -44,7 +44,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.onActive
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -80,11 +79,11 @@ class SearchFragment : HomeBaseFragment() {
     private val searchViewModel: SearchViewModel by viewModels()
 
     private var delayJob: CompletableJob = Job()
+    private val searchState = mutableStateOf(TextFieldValue(""))
 
     @Composable
     override fun setContent() {
         Column(Modifier.fillMaxWidth().padding(16.dp)) {
-            val searchState = remember { mutableStateOf(TextFieldValue("")) }
             Card(elevation = 8.dp, shape = MaterialTheme.shapes.small, modifier = Modifier.fillMaxWidth().height(45.dp)) {
                 Box(Modifier.fillMaxSize()) {
                     ProvideEmphasis(emphasis = AmbientEmphasisLevels.current.medium) {

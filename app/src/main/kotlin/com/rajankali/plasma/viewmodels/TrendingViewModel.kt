@@ -32,31 +32,25 @@ import androidx.lifecycle.viewModelScope
 import com.rajankali.core.data.Movie
 import com.rajankali.core.network.Failure
 import com.rajankali.core.network.Success
-import com.rajankali.plasma.data.model.MovieRequest
+import com.rajankali.plasma.data.model.TrendingMovieRequest
 import com.rajankali.plasma.data.repo.MovieRepo
-import com.rajankali.plasma.enums.MediaType
 import com.rajankali.plasma.enums.PageState
-import com.rajankali.plasma.enums.TimeWindow
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
 @ExperimentalCoroutinesApi
 class TrendingViewModel @ViewModelInject constructor(private val movieRepo: MovieRepo) : ViewModel() {
 
-    private val _trendingLiveData = MutableLiveData<LinkedHashMap<String, List<Movie>>>()
-    val trendingLiveData: LiveData<LinkedHashMap<String, List<Movie>>>
+    private val _trendingLiveData = MutableLiveData<LinkedHashMap<TrendingMovieRequest, List<Movie>>>()
+    val trendingLiveData: LiveData<LinkedHashMap<TrendingMovieRequest, List<Movie>>>
         get() = _trendingLiveData
 
     private val _pageStateLiveData = MutableLiveData<PageState>()
     val pageStateLiveData: LiveData<PageState>
         get() = _pageStateLiveData
 
-    private val trendingData = linkedMapOf("Trending" to MovieRequest(MediaType.ALL, TimeWindow.WEEK),
-            "Trending in Movies" to MovieRequest(MediaType.MOVIE, TimeWindow.DAY),
-            "Trending in TV" to MovieRequest(MediaType.TV, TimeWindow.DAY),
-            "Trending in Movies this week" to MovieRequest(MediaType.MOVIE, TimeWindow.WEEK),
-            "Trending in TV this week" to MovieRequest(MediaType.TV, TimeWindow.WEEK)
-    )
+    private val trendingData = listOf(TrendingMovieRequest.ALL_WEEK, TrendingMovieRequest.MOVIE_TODAY, TrendingMovieRequest.TV_TODAY,
+                        TrendingMovieRequest.MOVIE_THIS_WEEK, TrendingMovieRequest.TV_THIS_WEEK)
 
     init {
         fetchTrending()
@@ -69,7 +63,7 @@ class TrendingViewModel @ViewModelInject constructor(private val movieRepo: Movi
     }
 
     private var error = true
-    private var trendingMap = LinkedHashMap<String, List<Movie>>()
+    private var trendingMap = LinkedHashMap<TrendingMovieRequest, List<Movie>>()
 
     private fun fetchTrending() = viewModelScope.launch {
         error = true
@@ -87,12 +81,12 @@ class TrendingViewModel @ViewModelInject constructor(private val movieRepo: Movi
         }
     }
 
-    private suspend fun trending(entry: Map.Entry<String, MovieRequest>) {
-        when (val result = movieRepo.fetchTrendingMovies(page = 1, entry.value.mediaType, entry.value.timeWindow)) {
+    private suspend fun trending(trendingMovieRequest: TrendingMovieRequest) {
+        when (val result = movieRepo.fetchTrendingMovies(page = 1, trendingMovieRequest.movieRequest.mediaType, trendingMovieRequest.movieRequest.timeWindow)) {
             is Success -> {
                 if (result.data.results.filterNotNull().isNotEmpty()) {
                     error = false
-                    trendingMap[entry.key] = result.data.results.filterNotNull()
+                    trendingMap[trendingMovieRequest] = result.data.results.filterNotNull()
                 }
             }
             is Failure -> {
