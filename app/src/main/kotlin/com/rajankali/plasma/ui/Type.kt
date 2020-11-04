@@ -88,7 +88,6 @@ private val plasmaFontFamily = fontFamily(
         )
 )
 
-val doodleLetterFontFamily = fontFamily(listOf(ResourceFont(resId = R.font.doodletters)))
 val titleFontFamily = fontFamily(listOf(ResourceFont(resId = R.font.title)))
 val titleTextStyle = TextStyle(fontFamily = titleFontFamily, fontSize = 50.sp)
 

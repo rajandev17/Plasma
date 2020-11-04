@@ -24,6 +24,9 @@
 
 package com.rajankali.plasma.composable
 
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffXfermode
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -34,11 +37,24 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.WithConstraints
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.LinearGradientShader
+import androidx.compose.ui.graphics.Paint
+import androidx.compose.ui.graphics.Shader
+import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
+import androidx.compose.ui.graphics.nativeCanvas
+import androidx.compose.ui.platform.ContextAmbient
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.res.ResourcesCompat
+import com.rajankali.plasma.R
+import com.rajankali.plasma.ui.plamsaGradient
 import com.rajankali.plasma.ui.titleTextStyle
+
+@Suppress("unsued")
 
 @Composable
 fun Body(text: String, modifier: Modifier = Modifier){
@@ -119,4 +135,41 @@ fun EmptyText(text: String, modifier: Modifier = Modifier){
             style = MaterialTheme.typography.body2,
             lineHeight = 20.sp,
             textAlign = TextAlign.Center)
+}
+
+@Composable
+fun GradientText(name: String, size: Float = 130F, modifier: Modifier = Modifier) {
+    val context = ContextAmbient.current
+    val paint = Paint().asFrameworkPaint()
+    WithConstraints {
+        val y = size / 2
+        val gradientShader: Shader = LinearGradientShader(
+            from = Offset(0f, 0f),
+            to = Offset(0F, size / 2),
+            plamsaGradient
+        )
+        Canvas(modifier = modifier) {
+            paint.apply {
+                isAntiAlias = true
+                textSize = size
+                typeface = ResourcesCompat.getFont(context, R.font.title)
+                style = android.graphics.Paint.Style.FILL
+                color = android.graphics.Color.parseColor("#cdcdcd")
+                xfermode = PorterDuffXfermode(PorterDuff.Mode.DST_OVER)
+            }
+            val x = -paint.measureText(name)/2
+            drawIntoCanvas { canvas ->
+                canvas.save()
+                canvas.nativeCanvas.drawText(name, x, y, paint)
+                canvas.restore()
+                paint.shader = gradientShader
+                paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.CLEAR)
+                paint.maskFilter = null
+                canvas.nativeCanvas.drawText(name, x, y, paint)
+                paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.DST_OVER)
+                canvas.nativeCanvas.drawText(name, x, y, paint)
+            }
+            paint.reset()
+        }
+    }
 }

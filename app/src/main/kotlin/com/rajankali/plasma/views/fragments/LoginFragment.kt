@@ -48,8 +48,8 @@ import com.rajankali.core.extensions.matchParent
 import com.rajankali.core.extensions.toast
 import com.rajankali.plasma.composable.CardButton
 import com.rajankali.plasma.composable.CenteredCaption
+import com.rajankali.plasma.composable.GradientText
 import com.rajankali.plasma.composable.H6
-import com.rajankali.plasma.composable.Title
 import com.rajankali.plasma.composable.columnSpacer
 import com.rajankali.plasma.utils.navigateSafely
 import com.rajankali.plasma.viewmodels.LoginViewModel
@@ -67,8 +67,8 @@ class LoginFragment : BaseFragment() {
                 modifier = Modifier.fillMaxWidth().align(Alignment.Center).padding(16.dp)
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
-                    Title(mutableStateOf("Plasma"))
-                    columnSpacer(value = 20)
+                    GradientText(name = "Plasma", 110F)
+                    columnSpacer(value = 40)
                     H6(text = "Login to Plasma")
                     columnSpacer(value = 20)
                     CenteredCaption(text = "By Logging in to Plasma, you will be able to access your events.", Modifier.padding(20.dp, 0.dp))

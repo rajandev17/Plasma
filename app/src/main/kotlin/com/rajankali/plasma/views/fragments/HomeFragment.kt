@@ -24,10 +24,20 @@
 
 package com.rajankali.plasma.views.fragments
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.ComposeView
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.rajankali.core.extensions.matchParent
 import com.rajankali.plasma.R
+import com.rajankali.plasma.composable.GradientText
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -42,5 +52,10 @@ class HomeFragment : BaseFragment() {
     override fun initViews() {
         val controller = (childFragmentManager.findFragmentById(R.id.homeNavHostFragment) as NavHostFragment).navController
         view<BottomNavigationView>(R.id.homeBottomNav)?.setupWithNavController(controller)
+        view<ComposeView>(R.id.titleComposeView)?.setContent {
+            Column(modifier = Modifier.matchParent(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+                GradientText("Plamsa", size = 80F)
+            }
+        }
     }
 }

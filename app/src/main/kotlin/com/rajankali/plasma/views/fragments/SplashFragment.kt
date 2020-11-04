@@ -35,6 +35,7 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.lifecycleScope
 import com.rajankali.core.extensions.matchParent
 import com.rajankali.core.storage.PlasmaPrefs
+import com.rajankali.plasma.composable.GradientText
 import com.rajankali.plasma.composable.Title
 import com.rajankali.plasma.utils.navigateSafely
 import dagger.hilt.android.AndroidEntryPoint
@@ -53,7 +54,7 @@ class SplashFragment : BaseFragment() {
     @Composable
     override fun setContent() {
         Column(modifier = Modifier.matchParent().background(MaterialTheme.colors.surface), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-            Title(mutableStateOf("P"))
+            GradientText(mutableStateOf("P").value)
         }
         lifecycleScope.launch {
             delay(1000)

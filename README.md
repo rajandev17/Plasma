@@ -41,6 +41,9 @@
     - Modifiers
     - Alert Dialog
     - Text Animation
+    - KenbunsView with Compose
+    - Compose Vertical Gradient Text
+    - Compose Gradient Progress
 - Navigation UI with BottomNavigationBar
 - Navigation Directions and Safe Args
 - Navigation UI DeepLinks
@@ -50,7 +53,6 @@
 - Preferences with Jetpack DataStore(sync and async)
 - Multi Module
 - ViewModelInject
-- KenbunsView with Compose
 
 ### Data
 All the user credentials and Watchlist are saved Locally in Client SQLite Database for now.

@@ -25,12 +25,35 @@
 package com.rajankali.plasma.composable
 
 import android.widget.Toast
+import androidx.compose.animation.ColorPropKey
+import androidx.compose.animation.core.AnimationConstants
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.repeatable
+import androidx.compose.animation.core.transitionDefinition
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.transition
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.preferredHeight
+import androidx.compose.foundation.layout.preferredWidth
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.material.AmbientEmphasisLevels
+import androidx.compose.material.Card
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.ProvideEmphasis
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -49,7 +72,9 @@ import androidx.compose.ui.viewinterop.AndroidView
 import com.flaviofaria.kenburnsview.KenBurnsView
 import com.rajankali.core.extensions.load
 import com.rajankali.core.extensions.matchParent
+import com.rajankali.plasma.ui.blue200
 import com.rajankali.plasma.ui.plamsaGradient
+import com.rajankali.plasma.ui.teal200
 
 @Suppress("unused")
 @Composable
@@ -104,6 +129,26 @@ fun rowSpacer(value: Int) = Spacer(modifier = Modifier.preferredWidth(value.dp))
 @Composable
 fun columnSpacer(value: Int) = Spacer(modifier = Modifier.preferredHeight(value.dp))
 
+val colorKey = ColorPropKey()
+
+val ProgressColorTransition = transitionDefinition<Int> {
+    state(0){
+        this[colorKey] = teal200
+    }
+    state(1){
+        this[colorKey] = blue200
+    }
+    transition(fromState = 0, toState = 1){
+        colorKey using repeatable(
+            iterations = AnimationConstants.Infinite,
+            animation = tween(
+                durationMillis = 400,
+                easing = LinearEasing
+            )
+        )
+    }
+}
+
 @Composable
 fun LoadingView(){
     Column(
@@ -113,7 +158,12 @@ fun LoadingView(){
     ) {
         // A pre-defined composable that's capable of rendering a circular progress indicator. It
         // honors the Material Design specification.
-        CircularProgressIndicator(modifier = Modifier.wrapContentWidth(CenterHorizontally))
+        val colorState = transition(
+            definition = ProgressColorTransition,
+            initState = 0,
+            toState = 1
+        )
+        CircularProgressIndicator(modifier = Modifier.wrapContentWidth(CenterHorizontally), color = colorState[colorKey])
     }
 }
 

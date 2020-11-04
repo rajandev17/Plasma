@@ -83,7 +83,11 @@ class SearchViewModel @ViewModelInject constructor(private val movieRepo: MovieR
             is Success -> {
                 totalPages = result.data.totalPages
                 if (page == 1) {
-                    _pageStateLiveData.postValue(PageState.DATA)
+                    if(result.data.results.isNotEmpty()) {
+                        _pageStateLiveData.postValue(PageState.DATA)
+                    }else{
+                        _pageStateLiveData.postValue(PageState.EMPTY)
+                    }
                 }
                 page++
                 _searchShowsStateFlow.value = result.data.toData(_searchShowsStateFlow.value.data.filter { it.isValidMedia })

@@ -48,7 +48,7 @@ import com.rajankali.core.extensions.matchParent
 import com.rajankali.core.extensions.toast
 import com.rajankali.plasma.composable.CardButton
 import com.rajankali.plasma.composable.CenteredCaption
-import com.rajankali.plasma.composable.Title
+import com.rajankali.plasma.composable.GradientText
 import com.rajankali.plasma.composable.columnSpacer
 import com.rajankali.plasma.utils.navigateSafely
 import com.rajankali.plasma.viewmodels.RegisterViewModel
@@ -66,8 +66,8 @@ class RegisterFragment : BaseFragment() {
                 modifier = Modifier.fillMaxWidth().align(Alignment.Center).padding(16.dp)
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
-                    Title(mutableStateOf("Plasma"))
-                    columnSpacer(value = 20)
+                    GradientText(name = "Plasma", 110F)
+                    columnSpacer(value = 40)
                     Text(text = "Create Plasma Account", style = MaterialTheme.typography.h6)
                     columnSpacer(value = 20)
                     CenteredCaption(modifier = Modifier.padding(20.dp, 0.dp),

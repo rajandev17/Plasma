@@ -84,7 +84,7 @@ class SearchFragment : HomeBaseFragment() {
     @Composable
     override fun setContent() {
         Column(Modifier.fillMaxWidth().padding(16.dp)) {
-            Card(elevation = 8.dp, shape = MaterialTheme.shapes.small, modifier = Modifier.fillMaxWidth().height(45.dp)) {
+            Card(elevation = 8.dp, shape = MaterialTheme.shapes.small, modifier = Modifier.fillMaxWidth().height(48.dp)) {
                 Box(Modifier.fillMaxSize()) {
                     ProvideEmphasis(emphasis = AmbientEmphasisLevels.current.medium) {
                         val hint = if (searchState.value.text.isEmpty()) "Search Movies and TV Shows" else ""
@@ -109,6 +109,7 @@ class SearchFragment : HomeBaseFragment() {
                                     }
                                 }
                             },
+                            textStyle = MaterialTheme.typography.body2,
                             backgroundColor = Color.Transparent,
                             modifier = Modifier.fillMaxSize().background(Color.Transparent)
                     )

@@ -60,6 +60,7 @@ import com.rajankali.plasma.R
 import com.rajankali.plasma.composable.Body
 import com.rajankali.plasma.composable.CardButton
 import com.rajankali.plasma.composable.CenteredCaption
+import com.rajankali.plasma.composable.GradientText
 import com.rajankali.plasma.composable.OnSurfaceTint
 import com.rajankali.plasma.composable.Title
 import com.rajankali.plasma.composable.columnSpacer
@@ -104,7 +105,7 @@ class MainFragment : BaseFragment() {
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Title(titleState)
+                GradientText(titleState.value)
             }
             Column(Modifier.fillMaxWidth().align(Alignment.Center).offset(y = 50.dp).drawOpacity(alphaState.value)
                 .padding(start = 16.dp, end = 16.dp),
