@@ -83,9 +83,9 @@ class SearchViewModel @ViewModelInject constructor(private val movieRepo: MovieR
             is Success -> {
                 totalPages = result.data.totalPages
                 if (page == 1) {
-                    if(result.data.results.isNotEmpty()) {
+                    if (result.data.results.isNotEmpty()) {
                         _pageStateLiveData.postValue(PageState.DATA)
-                    }else{
+                    } else {
                         _pageStateLiveData.postValue(PageState.EMPTY)
                     }
                 }

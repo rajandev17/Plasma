@@ -24,9 +24,8 @@
 
 package com.rajankali.plasma.views.fragments
 
-import android.animation.ValueAnimator
 import android.os.Bundle
-import android.view.animation.DecelerateInterpolator
+import androidx.compose.animation.transition
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.background
@@ -37,12 +36,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.offsetPx
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawOpacity
@@ -57,30 +54,25 @@ import androidx.ui.tooling.preview.Preview
 import com.rajankali.core.R as coreR
 import com.rajankali.core.extensions.matchParent
 import com.rajankali.plasma.R
-import com.rajankali.plasma.composable.Body
-import com.rajankali.plasma.composable.CardButton
-import com.rajankali.plasma.composable.CenteredCaption
-import com.rajankali.plasma.composable.GradientText
-import com.rajankali.plasma.composable.OnSurfaceTint
-import com.rajankali.plasma.composable.Title
-import com.rajankali.plasma.composable.columnSpacer
-import com.rajankali.plasma.composable.rowSpacer
+import com.rajankali.plasma.compose.animaton.MainTransitionState
+import com.rajankali.plasma.compose.animaton.alphaPropKey
+import com.rajankali.plasma.compose.animaton.mainFragmentTransition
+import com.rajankali.plasma.compose.animaton.titleIndexPropKey
+import com.rajankali.plasma.compose.animaton.titleOffsetPropKey
+import com.rajankali.plasma.compose.layout.Body
+import com.rajankali.plasma.compose.layout.CardButton
+import com.rajankali.plasma.compose.layout.CenteredCaption
+import com.rajankali.plasma.compose.layout.GradientText
+import com.rajankali.plasma.compose.layout.OnSurfaceTint
+import com.rajankali.plasma.compose.layout.columnSpacer
+import com.rajankali.plasma.compose.layout.rowSpacer
 import com.rajankali.plasma.utils.navigateSafely
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class MainFragment : BaseFragment() {
-    private val alphaAnimator = ValueAnimator.ofInt(0, 1)
-    private val translateAnimator = ValueAnimator.ofFloat(0F, -400F)
-    private val alphaState = mutableStateOf(0F)
-    private val titleOffsetState = mutableStateOf(0F)
     private var canAnimate = true
     private var isOnBoarding: Boolean = true
-    private var titleState = mutableStateOf("P")
 
     override fun onArgumentsReady(bundle: Bundle) {
         isOnBoarding = MainFragmentArgs.fromBundle(bundle).isOnboarding
@@ -100,18 +92,19 @@ class MainFragment : BaseFragment() {
                         colorFilter = OnSurfaceTint(),
                         contentScale = ContentScale.Inside)
             }
+            val mainTransitionState = transition(definition = mainFragmentTransition,
+                initState = if (canAnimate) MainTransitionState.START else MainTransitionState.END, toState = MainTransitionState.END)
+            canAnimate = false
             Column(
-                modifier = Modifier.matchParent().offsetPx(y = titleOffsetState),
+                modifier = Modifier.matchParent().offset(y = mainTransitionState[titleOffsetPropKey]),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                GradientText(titleState.value)
+                GradientText("Plasma".substring(0, mainTransitionState[titleIndexPropKey]))
             }
-            Column(Modifier.fillMaxWidth().align(Alignment.Center).offset(y = 50.dp).drawOpacity(alphaState.value)
+            Column(Modifier.fillMaxWidth().align(Alignment.Center).offset(y = 50.dp).drawOpacity(mainTransitionState[alphaPropKey])
                 .padding(start = 16.dp, end = 16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally) {
-                // Text(text = "Welcome to Plasma", style = MaterialTheme.typography.h5)
-                // columnSpacer(value = 20)
                 Body(text = "Almost There!")
                 columnSpacer(value = 10)
                 CenteredCaption(text = "Login/Register to access your watchlist")
@@ -152,36 +145,6 @@ class MainFragment : BaseFragment() {
     }
 
     override fun initViews() {
-        if (!canAnimate) {
-            titleOffsetState.value = -400F
-            alphaState.value = 1F
-            titleState.value = "Plasma"
-            return
-        }
-        ioScope.launch {
-            delay(200)
-            "lasma".forEach {
-                delay(100)
-                withContext(Dispatchers.Main) {
-                    titleState.value = "${titleState.value}$it"
-                }
-            }
-            withContext(Dispatchers.Main) {
-                alphaAnimator.startDelay = 200
-                alphaAnimator.setDuration(400).start()
-                translateAnimator.setDuration(600).start()
-            }
-        }
-        canAnimate = false
-        alphaAnimator.repeatCount = 0
-        alphaAnimator.interpolator = DecelerateInterpolator()
-        alphaAnimator.addUpdateListener {
-            val alpha = it.animatedValue as Int
-            alphaState.value = alpha.toFloat()
-        }
-        translateAnimator.addUpdateListener {
-            titleOffsetState.value = it.animatedValue as Float
-        }
     }
 
     override fun initObservers() {

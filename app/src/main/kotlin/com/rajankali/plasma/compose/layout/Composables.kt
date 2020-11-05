@@ -22,15 +22,9 @@
  * SOFTWARE.
  */
 
-package com.rajankali.plasma.composable
+package com.rajankali.plasma.compose.layout
 
 import android.widget.Toast
-import androidx.compose.animation.ColorPropKey
-import androidx.compose.animation.core.AnimationConstants
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.repeatable
-import androidx.compose.animation.core.transitionDefinition
-import androidx.compose.animation.core.tween
 import androidx.compose.animation.transition
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.Text
@@ -72,9 +66,9 @@ import androidx.compose.ui.viewinterop.AndroidView
 import com.flaviofaria.kenburnsview.KenBurnsView
 import com.rajankali.core.extensions.load
 import com.rajankali.core.extensions.matchParent
-import com.rajankali.plasma.ui.blue200
+import com.rajankali.plasma.compose.animaton.ProgressColorTransition
+import com.rajankali.plasma.compose.animaton.colorPropKey
 import com.rajankali.plasma.ui.plamsaGradient
-import com.rajankali.plasma.ui.teal200
 
 @Suppress("unused")
 @Composable
@@ -129,26 +123,6 @@ fun rowSpacer(value: Int) = Spacer(modifier = Modifier.preferredWidth(value.dp))
 @Composable
 fun columnSpacer(value: Int) = Spacer(modifier = Modifier.preferredHeight(value.dp))
 
-val colorKey = ColorPropKey()
-
-val ProgressColorTransition = transitionDefinition<Int> {
-    state(0){
-        this[colorKey] = teal200
-    }
-    state(1){
-        this[colorKey] = blue200
-    }
-    transition(fromState = 0, toState = 1){
-        colorKey using repeatable(
-            iterations = AnimationConstants.Infinite,
-            animation = tween(
-                durationMillis = 400,
-                easing = LinearEasing
-            )
-        )
-    }
-}
-
 @Composable
 fun LoadingView(){
     Column(
@@ -156,14 +130,12 @@ fun LoadingView(){
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = CenterHorizontally
     ) {
-        // A pre-defined composable that's capable of rendering a circular progress indicator. It
-        // honors the Material Design specification.
         val colorState = transition(
             definition = ProgressColorTransition,
             initState = 0,
             toState = 1
         )
-        CircularProgressIndicator(modifier = Modifier.wrapContentWidth(CenterHorizontally), color = colorState[colorKey])
+        CircularProgressIndicator(modifier = Modifier.wrapContentWidth(CenterHorizontally), color = colorState[colorPropKey])
     }
 }
 

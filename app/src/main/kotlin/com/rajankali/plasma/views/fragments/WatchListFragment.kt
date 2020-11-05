@@ -27,9 +27,9 @@ package com.rajankali.plasma.views.fragments
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.fragment.app.viewModels
-import com.rajankali.plasma.composable.GridItem
-import com.rajankali.plasma.composable.LazyGridFor
-import com.rajankali.plasma.composable.handleState
+import com.rajankali.plasma.compose.layout.GridItem
+import com.rajankali.plasma.compose.layout.LazyGridFor
+import com.rajankali.plasma.compose.layout.handleState
 import com.rajankali.plasma.utils.navigateSafely
 import com.rajankali.plasma.viewmodels.WatchListViewModel
 import dagger.hilt.android.AndroidEntryPoint

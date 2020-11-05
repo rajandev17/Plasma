@@ -24,20 +24,17 @@
 
 package com.rajankali.plasma.views.fragments
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.rajankali.core.extensions.matchParent
 import com.rajankali.plasma.R
-import com.rajankali.plasma.composable.GradientText
+import com.rajankali.plasma.compose.layout.GradientText
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

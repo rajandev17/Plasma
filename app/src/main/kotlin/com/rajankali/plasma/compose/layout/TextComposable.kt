@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.rajankali.plasma.composable
+package com.rajankali.plasma.compose.layout
 
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffXfermode
@@ -39,6 +39,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.WithConstraints
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.LinearGradientShader
 import androidx.compose.ui.graphics.Paint
 import androidx.compose.ui.graphics.Shader
@@ -53,8 +54,6 @@ import androidx.core.content.res.ResourcesCompat
 import com.rajankali.plasma.R
 import com.rajankali.plasma.ui.plamsaGradient
 import com.rajankali.plasma.ui.titleTextStyle
-
-@Suppress("unsued")
 
 @Composable
 fun Body(text: String, modifier: Modifier = Modifier){
@@ -138,7 +137,7 @@ fun EmptyText(text: String, modifier: Modifier = Modifier){
 }
 
 @Composable
-fun GradientText(name: String, size: Float = 130F, modifier: Modifier = Modifier) {
+fun GradientText(name: String, size: Float = 130F, colors: List<Color> = plamsaGradient, modifier: Modifier = Modifier) {
     val context = ContextAmbient.current
     val paint = Paint().asFrameworkPaint()
     WithConstraints {
@@ -146,7 +145,7 @@ fun GradientText(name: String, size: Float = 130F, modifier: Modifier = Modifier
         val gradientShader: Shader = LinearGradientShader(
             from = Offset(0f, 0f),
             to = Offset(0F, size / 2),
-            plamsaGradient
+            colors
         )
         Canvas(modifier = modifier) {
             paint.apply {

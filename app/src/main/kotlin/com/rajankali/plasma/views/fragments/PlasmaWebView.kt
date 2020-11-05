@@ -37,8 +37,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ContextAmbient
 import androidx.compose.ui.viewinterop.AndroidView
-import com.rajankali.plasma.composable.LoadingView
-import com.rajankali.plasma.composable.ToolBar
+import com.rajankali.plasma.compose.layout.LoadingView
+import com.rajankali.plasma.compose.layout.ToolBar
 import com.rajankali.plasma.enums.WebRequest
 
 class PlasmaWebView : BaseFragment() {

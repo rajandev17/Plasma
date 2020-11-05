@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.rajankali.plasma.composable
+package com.rajankali.plasma.compose.layout
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.Text

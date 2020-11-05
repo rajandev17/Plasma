@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.rajankali.plasma.composable
+package com.rajankali.plasma.compose.layout
 
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable

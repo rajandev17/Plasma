@@ -46,11 +46,11 @@ import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
 import com.rajankali.core.extensions.matchParent
 import com.rajankali.core.extensions.toast
-import com.rajankali.plasma.composable.CardButton
-import com.rajankali.plasma.composable.CenteredCaption
-import com.rajankali.plasma.composable.GradientText
-import com.rajankali.plasma.composable.H6
-import com.rajankali.plasma.composable.columnSpacer
+import com.rajankali.plasma.compose.layout.CardButton
+import com.rajankali.plasma.compose.layout.CenteredCaption
+import com.rajankali.plasma.compose.layout.GradientText
+import com.rajankali.plasma.compose.layout.H6
+import com.rajankali.plasma.compose.layout.columnSpacer
 import com.rajankali.plasma.utils.navigateSafely
 import com.rajankali.plasma.viewmodels.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint

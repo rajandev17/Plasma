@@ -22,11 +22,17 @@
  * SOFTWARE.
  */
 
-package com.rajankali.plasma.composable
+package com.rajankali.plasma.compose.layout
 
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.preferredHeight
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.AmbientEmphasisLevels
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
@@ -38,7 +44,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.rajankali.core.data.Cast
 import com.rajankali.core.data.Movie
-import java.util.*
+import java.util.Locale
 
 @Composable
 fun MovieListItem(movie: Movie, isFirstCard: Boolean = false, onClick: () -> Unit) {
@@ -86,9 +92,9 @@ fun MovieListItem(movie: Movie, isFirstCard: Boolean = false, onClick: () -> Uni
 }
 
 @Composable
-fun MovieCard(movie: Movie, isFirstCard: Boolean = false, onClick: () -> Unit) {
+fun MovieCard(movie: Movie, isFirstCard: Boolean = false, modifier: Modifier = Modifier, onClick: () -> Unit) {
     rowSpacer(value = if(isFirstCard) 16 else 4)
-    Column(modifier = Modifier.width(120.dp).padding(vertical = 8.dp)
+    Column(modifier = modifier.width(120.dp).padding(vertical = 8.dp)
     ) {
         Card(
                 elevation = 4.dp,

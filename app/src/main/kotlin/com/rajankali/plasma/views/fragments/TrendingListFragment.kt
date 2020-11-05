@@ -30,10 +30,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.onActive
 import androidx.fragment.app.viewModels
-import com.rajankali.plasma.composable.LazyGridFor
-import com.rajankali.plasma.composable.MovieCard
-import com.rajankali.plasma.composable.ToolBar
-import com.rajankali.plasma.composable.handleState
+import com.rajankali.plasma.compose.layout.LazyGridFor
+import com.rajankali.plasma.compose.layout.MovieCard
+import com.rajankali.plasma.compose.layout.ToolBar
+import com.rajankali.plasma.compose.layout.handleState
 import com.rajankali.plasma.data.model.LatestData
 import com.rajankali.plasma.data.model.TrendingMovieRequest
 import com.rajankali.plasma.utils.navigateSafely

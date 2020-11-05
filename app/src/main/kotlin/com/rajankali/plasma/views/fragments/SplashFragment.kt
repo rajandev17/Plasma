@@ -35,8 +35,7 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.lifecycleScope
 import com.rajankali.core.extensions.matchParent
 import com.rajankali.core.storage.PlasmaPrefs
-import com.rajankali.plasma.composable.GradientText
-import com.rajankali.plasma.composable.Title
+import com.rajankali.plasma.compose.layout.GradientText
 import com.rajankali.plasma.utils.navigateSafely
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
