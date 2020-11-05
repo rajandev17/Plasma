@@ -125,7 +125,7 @@ fun H2(text: String,  modifier: Modifier = Modifier){
 fun ErrorText(text: String, modifier: Modifier = Modifier){
     Text(text = text, modifier = modifier.fillMaxWidth().padding(horizontal = 48.dp),
         style = MaterialTheme.typography.body2,
-        textAlign = TextAlign.Center, color = MaterialTheme.colors.error.copy(alpha = 0.7F))
+        textAlign = TextAlign.Center, color = MaterialTheme.colors.error.copy(alpha = 0.9F))
 }
 
 @Composable

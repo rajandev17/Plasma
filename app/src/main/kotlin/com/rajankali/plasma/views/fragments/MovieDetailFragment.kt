@@ -69,7 +69,7 @@ import com.rajankali.plasma.compose.layout.KenBurnsView
 import com.rajankali.plasma.compose.layout.LazyGridFor
 import com.rajankali.plasma.compose.layout.MovieMetadata
 import com.rajankali.plasma.compose.layout.columnSpacer
-import com.rajankali.plasma.compose.layout.handleState
+import com.rajankali.plasma.compose.layout.WithPageState
 import com.rajankali.plasma.viewmodels.MovieDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
@@ -117,7 +117,7 @@ class MovieDetailFragment : BaseFragment() {
             MovieDetailView(movie)
             H6(text = "Cast", modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp))
             Divider(modifier = Modifier.preferredHeight((0.8).dp).fillMaxWidth().padding(horizontal = 12.dp), color = MaterialTheme.colors.onSurface.copy(alpha = 0.3F))
-            handleState(pageStateLiveData = movieDetailViewModel.pageStateLiveData) {
+            WithPageState(pageState = movieDetailViewModel.pageState) {
                 CastGrid(movieDetailViewModel.castLiveData)
             }
         }

@@ -29,7 +29,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.fragment.app.viewModels
 import com.rajankali.plasma.compose.layout.GridItem
 import com.rajankali.plasma.compose.layout.LazyGridFor
-import com.rajankali.plasma.compose.layout.handleState
+import com.rajankali.plasma.compose.layout.WithPageState
 import com.rajankali.plasma.utils.navigateSafely
 import com.rajankali.plasma.viewmodels.WatchListViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,7 +41,7 @@ class WatchListFragment : HomeBaseFragment() {
 
     @Composable
     override fun setContent() {
-        handleState(pageStateLiveData = watchLoginViewModel.pageStateLiveData,
+        WithPageState(pageState = watchLoginViewModel.pageState,
                 emptyMessage = "Nothing in here Yet!\n Start adding Movie/Show to Watchlist so you can access them here Later") {
             WatchList(watchListViewModel = watchLoginViewModel)
         }

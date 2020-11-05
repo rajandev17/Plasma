@@ -48,13 +48,12 @@ import androidx.compose.material.ProvideEmphasis
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.LiveData
 import com.rajankali.plasma.R
 import com.rajankali.plasma.enums.PageState
 import java.util.Locale
@@ -147,14 +146,13 @@ fun ColumnLine(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun handleState(
-    pageStateLiveData: LiveData<PageState>,
+fun WithPageState(
+    pageState: State<PageState>,
     IdleView: (@Composable () -> Unit) = { },
     errorMessage: String = "Oops! Something went wrong, Please try again after some time",
     emptyMessage: String = "Nothing in here Yet!, Please comeback later",
     content: @Composable () -> Unit
 ) {
-    val pageState = pageStateLiveData.observeAsState(initial = PageState.IDLE)
     when (pageState.value) {
         PageState.LOADING -> {
             LoadingView()
@@ -180,5 +178,5 @@ fun ToolBar(title: String, onBackClick: () -> Unit) {
     TopAppBar(title = { H6(text = title, modifier = Modifier.offset(x = (-20).dp)) },
             navigationIcon = {
                 Image(asset = vectorResource(id = R.drawable.ic_baseline_arrow_back_24), colorFilter = OnSurfaceTint(), modifier = Modifier.offset(x = 12.dp).clickable { onBackClick() })
-            }, backgroundColor = AmbientElevationOverlay.current?.apply(bgColor, 25.dp) ?: bgColor)
+            }, backgroundColor = AmbientElevationOverlay.current?.apply(bgColor, 4.dp) ?: bgColor)
 }

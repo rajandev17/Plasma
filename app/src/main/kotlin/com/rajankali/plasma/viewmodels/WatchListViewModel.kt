@@ -24,6 +24,8 @@
 
 package com.rajankali.plasma.viewmodels
 
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -41,20 +43,20 @@ class WatchListViewModel @ViewModelInject constructor(private val movieRepo: Mov
     val watchListLiveData: LiveData<List<Movie>>
         get() = _watchListLiveData
 
-    private val _pageStateLiveData = MutableLiveData<PageState>()
-    val pageStateLiveData: LiveData<PageState>
-        get() = _pageStateLiveData
+    private val _pageState = mutableStateOf(PageState.IDLE)
+    val pageState: State<PageState>
+        get() = _pageState
 
     private var loggedInUserId = -1L
 
     fun fetchWatchList(userId: Long) = viewModelScope.launch {
-        _pageStateLiveData.postValue(PageState.LOADING)
+        _pageState.value = PageState.LOADING
         loggedInUserId = userId
         val result = movieRepo.fetchWatchList(loggedInUserId)
         if (result.isEmpty()) {
-            _pageStateLiveData.postValue(PageState.EMPTY)
+            _pageState.value = PageState.EMPTY
         } else {
-            _pageStateLiveData.postValue(PageState.DATA)
+            _pageState.value = PageState.DATA
         }
         _watchListLiveData.postValue(result)
     }

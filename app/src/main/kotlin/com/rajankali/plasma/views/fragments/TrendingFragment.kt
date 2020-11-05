@@ -42,7 +42,7 @@ import androidx.fragment.app.viewModels
 import com.rajankali.core.data.Movie
 import com.rajankali.plasma.compose.layout.MovieCard
 import com.rajankali.plasma.compose.layout.columnSpacer
-import com.rajankali.plasma.compose.layout.handleState
+import com.rajankali.plasma.compose.layout.WithPageState
 import com.rajankali.plasma.data.model.TrendingMovieRequest
 import com.rajankali.plasma.utils.navigateSafely
 import com.rajankali.plasma.viewmodels.TrendingViewModel
@@ -57,7 +57,7 @@ class TrendingFragment : HomeBaseFragment() {
 
     @Composable
     override fun setContent() {
-        handleState(pageStateLiveData = trendingViewModel.pageStateLiveData) {
+        WithPageState(pageState = trendingViewModel.pageState) {
             val trendingData = trendingViewModel.trendingLiveData.observeAsState(initial = mapOf())
             ScrollableColumn {
                 columnSpacer(value = 8)

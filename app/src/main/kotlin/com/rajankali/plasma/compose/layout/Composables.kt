@@ -59,6 +59,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.HorizontalGradient
 import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.platform.ContextAmbient
+import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -140,15 +141,15 @@ fun LoadingView(){
 }
 
 @Composable
-fun ErrorView(message: String = "Oops! Something went wrong, Please refresh after some time"){
+fun ErrorView(message: String = "Oops! Something went wrong,\n Please refresh after some time!"){
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = CenterHorizontally
     ) {
-        Image(asset = vectorResource(id = com.rajankali.plasma.R.drawable.ic_baseline_warning_108),
+        Image(asset = vectorResource(id = com.rajankali.plasma.R.drawable.ic_round_warning_24),
             colorFilter = ColorFilter.tint(MaterialTheme.colors.error),
-        modifier = Modifier.size(108.dp))
+        modifier = Modifier.size(84.dp))
         columnSpacer(value = 12)
         ErrorText(message)
     }
@@ -161,7 +162,7 @@ fun EmptyView(message: String = "Nothing in here Yet!, Please comeback later"){
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = CenterHorizontally
     ) {
-        Image(asset = vectorResource(id = com.rajankali.plasma.R.drawable.ic_outline_article_24),
+        Image(asset = imageResource(id = com.rajankali.plasma.R.drawable.empty),
                 colorFilter = ColorFilter.tint(MaterialTheme.colors.onSurface.copy(alpha = 0.8F)),
                 modifier = Modifier.size(108.dp))
         columnSpacer(value = 12)

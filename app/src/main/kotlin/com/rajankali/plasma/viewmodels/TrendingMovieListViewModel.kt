@@ -24,9 +24,9 @@
 
 package com.rajankali.plasma.viewmodels
 
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rajankali.core.data.Movie
@@ -45,36 +45,36 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 @ExperimentalCoroutinesApi
-class TrendindMovieListViewModel @ViewModelInject constructor(private val movieRepo: MovieRepo) : ViewModel() {
+class TrendingMovieListViewModel @ViewModelInject constructor(private val movieRepo: MovieRepo) : ViewModel() {
 
     private val _trendingShowsStateFlow = MutableStateFlow(LatestData<Movie>(emptyList()))
     val trendingShowStateFlow: StateFlow<LatestData<Movie>>
         get() = _trendingShowsStateFlow
 
-    private val _pageStateLiveData = MutableLiveData<PageState>()
-    val pageStateLiveData: LiveData<PageState>
-        get() = _pageStateLiveData
+    private val _pageState = mutableStateOf(PageState.IDLE)
+    val pageState: State<PageState>
+        get() = _pageState
 
     private var page = 1
     private var totalPages = 1
     private var movieRequest: MovieRequest = MovieRequest(MediaType.ALL, TimeWindow.WEEK)
 
     fun fetchMovies(movieRequest: MovieRequest) = viewModelScope.launch {
-        this@TrendindMovieListViewModel.movieRequest = movieRequest
+        this@TrendingMovieListViewModel.movieRequest = movieRequest
         if (page == 1) {
-            _pageStateLiveData.postValue(PageState.LOADING)
+            _pageState.value = PageState.LOADING
         }
         when (val result = movieRepo.fetchTrendingMovies(page = page, movieRequest.mediaType, movieRequest.timeWindow)) {
             is Success -> {
                 totalPages = result.data.totalPages
                 if (page == 1) {
-                    _pageStateLiveData.postValue(PageState.DATA)
+                    _pageState.value = PageState.DATA
                 }
                 page++
                 _trendingShowsStateFlow.value = result.data.toData(_trendingShowsStateFlow.value.data)
             }
             is Failure -> {
-                _pageStateLiveData.postValue(PageState.ERROR)
+                _pageState.value = PageState.ERROR
             }
         }
     }

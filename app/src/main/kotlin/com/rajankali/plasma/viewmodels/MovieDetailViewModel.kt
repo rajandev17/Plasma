@@ -24,6 +24,8 @@
 
 package com.rajankali.plasma.viewmodels
 
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -46,8 +48,8 @@ class MovieDetailViewModel @ViewModelInject constructor(
     private val _watchListLiveData = MutableLiveData<Boolean>()
     val watchListLiveData: LiveData<Boolean> get() = _watchListLiveData
 
-    private val _pageStateLiveData = MutableLiveData<PageState>()
-    val pageStateLiveData: LiveData<PageState> get() = _pageStateLiveData
+    private val _pageState = mutableStateOf(PageState.IDLE)
+    val pageState: State<PageState> get() = _pageState
 
     private val _castLiveData = MutableLiveData<List<Cast>>()
     val castLiveData: LiveData<List<Cast>> get() = _castLiveData
@@ -69,14 +71,14 @@ class MovieDetailViewModel @ViewModelInject constructor(
     }
 
     fun cast(movie: Movie) = viewModelScope.launch {
-        _pageStateLiveData.postValue(PageState.LOADING)
+        _pageState.value = PageState.LOADING
         when (val result = movieRepo.cast(movie = movie)) {
             is Success -> {
-                _pageStateLiveData.postValue(PageState.DATA)
+                _pageState.value = PageState.DATA
                 _castLiveData.postValue(result.data.cast)
             }
             is Failure -> {
-                _pageStateLiveData.postValue(PageState.ERROR)
+                _pageState.value = PageState.ERROR
             }
         }
     }

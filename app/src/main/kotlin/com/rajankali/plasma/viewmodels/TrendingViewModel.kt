@@ -24,6 +24,8 @@
 
 package com.rajankali.plasma.viewmodels
 
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -45,9 +47,9 @@ class TrendingViewModel @ViewModelInject constructor(private val movieRepo: Movi
     val trendingLiveData: LiveData<LinkedHashMap<TrendingMovieRequest, List<Movie>>>
         get() = _trendingLiveData
 
-    private val _pageStateLiveData = MutableLiveData<PageState>()
-    val pageStateLiveData: LiveData<PageState>
-        get() = _pageStateLiveData
+    private val _pageSate = mutableStateOf(PageState.IDLE)
+    val pageState: State<PageState>
+        get() = _pageSate
 
     private val trendingData = listOf(TrendingMovieRequest.ALL_WEEK, TrendingMovieRequest.MOVIE_TODAY, TrendingMovieRequest.TV_TODAY,
                         TrendingMovieRequest.MOVIE_THIS_WEEK, TrendingMovieRequest.TV_THIS_WEEK)
@@ -67,17 +69,17 @@ class TrendingViewModel @ViewModelInject constructor(private val movieRepo: Movi
 
     private fun fetchTrending() = viewModelScope.launch {
         error = true
-        _pageStateLiveData.postValue(PageState.LOADING)
+        _pageSate.value = PageState.LOADING
         trendingData.forEach {
             trending(it)
         }
         if (error) {
-            _pageStateLiveData.postValue(PageState.ERROR)
+            _pageSate.value = PageState.ERROR
         } else if (trendingMap.isEmpty()) {
-            _pageStateLiveData.postValue(PageState.EMPTY)
+            _pageSate.value = PageState.EMPTY
         } else {
             _trendingLiveData.postValue(trendingMap)
-            _pageStateLiveData.postValue(PageState.DATA)
+            _pageSate.value = PageState.DATA
         }
     }
 

@@ -24,6 +24,8 @@
 
 package com.rajankali.plasma.viewmodels
 
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -48,9 +50,9 @@ class SearchViewModel @ViewModelInject constructor(private val movieRepo: MovieR
     val searchShowStateFlow: StateFlow<LatestData<Movie>>
         get() = _searchShowsStateFlow
 
-    private val _pageStateLiveData = MutableLiveData<PageState>()
-    val pageStateLiveData: LiveData<PageState>
-        get() = _pageStateLiveData
+    private val _pageState = mutableStateOf(PageState.IDLE)
+    val pageState: State<PageState>
+        get() = _pageState
 
     private val _recentSearchLiveData = MutableLiveData<List<String>>()
     val recentSearchLiveData: LiveData<List<String>>
@@ -77,23 +79,23 @@ class SearchViewModel @ViewModelInject constructor(private val movieRepo: MovieR
             _recentSearchLiveData.postValue(movieRepo.recentSearches())
         }
         if (page == 1) {
-            _pageStateLiveData.postValue(PageState.LOADING)
+            _pageState.value = PageState.LOADING
         }
         when (val result = movieRepo.search(page = page, query = query)) {
             is Success -> {
                 totalPages = result.data.totalPages
                 if (page == 1) {
                     if (result.data.results.isNotEmpty()) {
-                        _pageStateLiveData.postValue(PageState.DATA)
+                        _pageState.value = PageState.DATA
                     } else {
-                        _pageStateLiveData.postValue(PageState.EMPTY)
+                        _pageState.value = PageState.EMPTY
                     }
                 }
                 page++
                 _searchShowsStateFlow.value = result.data.toData(_searchShowsStateFlow.value.data.filter { it.isValidMedia })
             }
             is Failure -> {
-                _pageStateLiveData.postValue(PageState.ERROR)
+                _pageState.value = PageState.ERROR
             }
         }
     }
@@ -108,6 +110,6 @@ class SearchViewModel @ViewModelInject constructor(private val movieRepo: MovieR
         _searchShowsStateFlow.value = LatestData(emptyList())
         page = 1
         totalPages = 1
-        _pageStateLiveData.postValue(PageState.IDLE)
+        _pageState.value = PageState.IDLE
     }
 }

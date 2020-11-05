@@ -59,7 +59,7 @@ import com.rajankali.plasma.compose.layout.GridItem
 import com.rajankali.plasma.compose.layout.IconText
 import com.rajankali.plasma.compose.layout.LazyGridFor
 import com.rajankali.plasma.compose.layout.columnSpacer
-import com.rajankali.plasma.compose.layout.handleState
+import com.rajankali.plasma.compose.layout.WithPageState
 import com.rajankali.plasma.data.model.LatestData
 import com.rajankali.plasma.utils.navigateSafely
 import com.rajankali.plasma.viewmodels.SearchViewModel
@@ -116,7 +116,7 @@ class SearchFragment : HomeBaseFragment() {
                 }
             }
             columnSpacer(value = 10)
-            handleState(pageStateLiveData = searchViewModel.pageStateLiveData, IdleView = { IdleSearch {
+            WithPageState(pageState = searchViewModel.pageState, IdleView = { IdleSearch {
                 searchState.value = TextFieldValue(it, TextRange(it.length))
             } }, emptyMessage = "No Search results found matching the query, Try again with different query") {
                 SearchResults(searchViewModel)

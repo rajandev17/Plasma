@@ -30,14 +30,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.onActive
 import androidx.fragment.app.viewModels
+import com.rajankali.plasma.compose.layout.GridItem
 import com.rajankali.plasma.compose.layout.LazyGridFor
-import com.rajankali.plasma.compose.layout.MovieCard
 import com.rajankali.plasma.compose.layout.ToolBar
-import com.rajankali.plasma.compose.layout.handleState
+import com.rajankali.plasma.compose.layout.WithPageState
 import com.rajankali.plasma.data.model.LatestData
 import com.rajankali.plasma.data.model.TrendingMovieRequest
 import com.rajankali.plasma.utils.navigateSafely
-import com.rajankali.plasma.viewmodels.TrendindMovieListViewModel
+import com.rajankali.plasma.viewmodels.TrendingMovieListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -45,7 +45,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @ExperimentalCoroutinesApi
 class TrendingListFragment : BaseFragment() {
 
-    private val trendingMovieListViewModel: TrendindMovieListViewModel by viewModels()
+    private val trendingMovieListViewModel: TrendingMovieListViewModel by viewModels()
 
     private var trendingMovieRequest = TrendingMovieRequest.ALL_WEEK
 
@@ -69,13 +69,13 @@ class TrendingListFragment : BaseFragment() {
                 initial = LatestData(emptyList())
             )
             val lastIndex = movieStateFlow.value.data.lastIndex
-            handleState(pageStateLiveData = trendingMovieListViewModel.pageStateLiveData) {
+            WithPageState(pageState = trendingMovieListViewModel.pageState) {
                 LazyGridFor(movieStateFlow.value.data) { movie, index ->
                     onActive {
                         if (index == lastIndex)
                             trendingMovieListViewModel.nextPage()
                     }
-                    MovieCard(movie = movie) {
+                    GridItem(movie = movie) {
                         navController.navigateSafely(
                             TrendingListFragmentDirections.actionTrendingListFragmentToMovieDetailFragment(
                                 movie
