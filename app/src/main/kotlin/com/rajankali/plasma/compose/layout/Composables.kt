@@ -149,7 +149,7 @@ fun ErrorView(message: String = "Oops! Something went wrong,\n Please refresh af
     ) {
         Image(asset = vectorResource(id = com.rajankali.plasma.R.drawable.ic_round_warning_24),
             colorFilter = ColorFilter.tint(MaterialTheme.colors.error),
-        modifier = Modifier.size(84.dp))
+        modifier = Modifier.size(96.dp))
         columnSpacer(value = 12)
         ErrorText(message)
     }
@@ -162,9 +162,9 @@ fun EmptyView(message: String = "Nothing in here Yet!, Please comeback later"){
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = CenterHorizontally
     ) {
-        Image(asset = imageResource(id = com.rajankali.plasma.R.drawable.empty),
+        Image(asset = vectorResource(id = com.rajankali.plasma.R.drawable.ic_empty_inbox_96),
                 colorFilter = ColorFilter.tint(MaterialTheme.colors.onSurface.copy(alpha = 0.8F)),
-                modifier = Modifier.size(108.dp))
+                modifier = Modifier.size(96.dp))
         columnSpacer(value = 12)
         ProvideEmphasis(emphasis = AmbientEmphasisLevels.current.medium) {
             EmptyText(message)

@@ -68,8 +68,8 @@ import com.rajankali.plasma.compose.layout.H6
 import com.rajankali.plasma.compose.layout.KenBurnsView
 import com.rajankali.plasma.compose.layout.LazyGridFor
 import com.rajankali.plasma.compose.layout.MovieMetadata
-import com.rajankali.plasma.compose.layout.columnSpacer
 import com.rajankali.plasma.compose.layout.WithPageState
+import com.rajankali.plasma.compose.layout.columnSpacer
 import com.rajankali.plasma.viewmodels.MovieDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
