@@ -43,9 +43,11 @@ import androidx.compose.foundation.layout.preferredHeight
 import androidx.compose.foundation.layout.preferredWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.material.AmbientElevationOverlay
 import androidx.compose.material.AmbientEmphasisLevels
 import androidx.compose.material.Card
 import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ProvideEmphasis
 import androidx.compose.runtime.Composable
@@ -58,10 +60,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.HorizontalGradient
 import androidx.compose.ui.graphics.TileMode
+import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.platform.ContextAmbient
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.flaviofaria.kenburnsview.KenBurnsView
@@ -175,4 +179,24 @@ fun EmptyView(message: String = "Nothing in here Yet!, Please comeback later"){
 @Composable
 fun Toast(message: String, length: Int = Toast.LENGTH_SHORT){
     Toast.makeText(ContextAmbient.current, message, length).show()
+}
+
+/**
+ * Return the fully opaque color that results from compositing [onSurface] atop [surface] with the
+ * given [alpha]. Useful for situations where semi-transparent colors are undesirable.
+ */
+@Composable
+fun Colors.compositedOnSurface(alpha: Float): Color {
+    return onSurface.copy(alpha = alpha).compositeOver(surface)
+}
+
+/**
+ * Calculates the color of an elevated `surface` in dark mode. Returns `surface` in light mode.
+ */
+@Composable
+fun Colors.elevatedSurface(elevation: Dp): Color {
+    return AmbientElevationOverlay.current?.apply(
+        color = this.surface,
+        elevation = elevation
+    ) ?: this.surface
 }
