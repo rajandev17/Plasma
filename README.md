@@ -16,7 +16,7 @@
 - Single Activity Architecture
 - MVVM Pattern
 
-<img src="https://github.com/rajandev17/Plasma/blob/master/screenshots/demo.gif?raw=true" width="300"/>
+<img src="https://github.com/rajandev17/Plasma/blob/master/screenshots/demo_latest.gif?raw=true" width="300"/>
 
 
 ```Works on Android Studio 4.2 Canary 14, gradle 4.2.0-alpha14```
