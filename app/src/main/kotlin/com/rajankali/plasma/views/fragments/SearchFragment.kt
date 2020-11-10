@@ -24,6 +24,10 @@
 
 package com.rajankali.plasma.views.fragments
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.TweenSpec
+import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayout
@@ -64,6 +68,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+@ExperimentalAnimationApi
 @ExperimentalFoundationApi
 @ExperimentalFocus
 @ExperimentalLayout
@@ -79,7 +84,11 @@ class SearchFragment : HomeBaseFragment() {
     override fun setContent() {
         val textState = remember { mutableStateOf(TextFieldValue()) }
         Column(Modifier.fillMaxWidth().padding(16.dp)) {
-            Card(elevation = 8.dp, shape = MaterialTheme.shapes.small, modifier = Modifier.fillMaxWidth()) {
+            Card(
+                elevation = 8.dp,
+                shape = MaterialTheme.shapes.small,
+                modifier = Modifier.fillMaxWidth()
+            ) {
                 SearchInput(hint = "Search Movies and TV Shows", textState = textState) {
                     delayJob.cancel()
                     if (it.isEmpty()) {
@@ -112,7 +121,8 @@ class SearchFragment : HomeBaseFragment() {
 
     @Composable
     private fun SearchResults(searchViewModel: SearchViewModel) {
-        val searchFlowState = searchViewModel.searchShowStateFlow.collectAsState(initial = LatestData(emptyList()))
+        val searchFlowState =
+            searchViewModel.searchShowStateFlow.collectAsState(initial = LatestData(emptyList()))
         LazyGridFor(items = searchFlowState.value.data, hPadding = 0) { movie, index ->
             if (index == searchFlowState.value.data.lastIndex) {
                 onActive {
@@ -120,28 +130,37 @@ class SearchFragment : HomeBaseFragment() {
                 }
             }
             GridItem(movie) {
-                homeNavController.navigateSafely(HomeFragmentDirections.actionHomeFragmentToMovieDetailFragment(movie))
+                homeNavController.navigateSafely(
+                    HomeFragmentDirections.actionHomeFragmentToMovieDetailFragment(
+                        movie
+                    )
+                )
             }
         }
     }
 
     @Composable
     fun IdleSearch(onClick: (term: String) -> Unit) {
-        Column(Modifier.fillMaxWidth()) {
-            val recentSearchState = searchViewModel.recentSearchLiveData.observeAsState(initial = emptyList())
-            if (recentSearchState.value.isNotEmpty()) {
+        AnimatedVisibility(visible = true, initiallyVisible = false, enter = fadeIn(animSpec = TweenSpec(durationMillis = 600, delay = 300))) {
+            Column(Modifier.fillMaxWidth()) {
+                val recentSearchState =
+                    searchViewModel.recentSearchLiveData.observeAsState(initial = emptyList())
+                if (recentSearchState.value.isNotEmpty()) {
+                    columnSpacer(value = 8)
+                    IconText(text = "Recent Searches", icon = R.drawable.ic_baseline_recent_24)
+                }
                 columnSpacer(value = 8)
-                IconText(text = "Recent Searches", icon = R.drawable.ic_baseline_recent_24)
-            }
-            columnSpacer(value = 8)
-            FlowRow {
-                recentSearchState.value.forEach {
-                    Chip(text = it, icon = R.drawable.ic_baseline_trending_up_24) {
-                        onClick(it)
-                        searchViewModel.search(it)
+                FlowRow {
+                    recentSearchState.value.forEach {
+                        Chip(text = it, icon = R.drawable.ic_baseline_trending_up_24) {
+                            onClick(it)
+                            searchViewModel.search(it)
+                        }
                     }
                 }
             }
         }
     }
+
+
 }

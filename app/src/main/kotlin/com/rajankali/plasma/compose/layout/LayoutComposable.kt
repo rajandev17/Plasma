@@ -24,6 +24,7 @@
 
 package com.rajankali.plasma.compose.layout
 
+import androidx.compose.animation.animatedFloat
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.clickable
@@ -49,12 +50,17 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
+import androidx.compose.runtime.onActive
+import androidx.compose.runtime.onDispose
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawOpacity
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import com.rajankali.plasma.R
+import com.rajankali.plasma.compose.animaton.tweenSpec
 import com.rajankali.plasma.enums.PageState
 import java.util.Locale
 
@@ -100,13 +106,24 @@ fun <T> LazyGridFor(
     hPadding: Int = 8,
     itemContent: @Composable LazyItemScope.(T, Int) -> Unit
 ) {
+    val animatedSet = remember { mutableSetOf<Int>() }
     val chunkedList = items.chunked(rows)
     LazyColumnForIndexed(items = chunkedList, modifier = Modifier.padding(horizontal = hPadding.dp)) { index, it ->
         if (index == 0) {
             columnSpacer(value = 8)
         }
-
-        Row {
+        val offsetValue = animatedFloat(initVal = if(index in animatedSet) 0F else 150F)
+        val alphaValue = animatedFloat(initVal = if(index in animatedSet) 1F else 0F)
+        onActive {
+            offsetValue.animateTo(0F, anim = tweenSpec)
+            alphaValue.animateTo(1F, anim = tweenSpec)
+            animatedSet.add(index)
+        }
+        onDispose{
+            offsetValue.snapTo(0F)
+            offsetValue.stop()
+        }
+        Row(modifier = Modifier.offset(y = offsetValue.value.toInt().dp).drawOpacity(alphaValue.value)) {
             it.forEachIndexed { rowIndex, item ->
                 Box(modifier = Modifier.weight(1F).align(Alignment.Top).padding(8.dp), alignment = Alignment.Center) {
                     itemContent(item, index * rows + rowIndex)
