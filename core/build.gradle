@@ -26,7 +26,6 @@ plugins {
     id 'com.android.library'
     id 'kotlin-android'
     id 'kotlin-kapt'
-    id 'kotlin-android-extensions'
     id 'dagger.hilt.android.plugin'
 }
 
@@ -60,6 +59,9 @@ android {
                     }
                 }
             }
+    buildFeatures {
+        viewBinding true
+    }
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 30

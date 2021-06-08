@@ -26,7 +26,6 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
-    id 'kotlin-android-extensions'
     id 'dagger.hilt.android.plugin'
     id 'androidx.navigation.safeargs'
 }
@@ -61,6 +60,9 @@ android {
                     }
                 }
             }
+    buildFeatures {
+        viewBinding true
+    }
     defaultConfig {
         applicationId "com.rajankali.plasma"
         minSdkVersion 21
