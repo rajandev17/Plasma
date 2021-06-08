@@ -117,13 +117,14 @@ dependencies {
     api "androidx.core:core-ktx:1.3.2"
 
     //design
-    api "androidx.appcompat:appcompat:1.2.0"
     api "com.google.android.material:material:1.2.1"
 
     //compose
     if (android_builder_main_version < 7) {
         add("kotlinCompilerPluginClasspath", "androidx.compose.compiler:compiler:$compose_version")
     }
+    api "androidx.appcompat:appcompat:$compose_appcompat_version"
+    api "androidx.activity:activity-compose:$compose_activity_version"
     api "androidx.compose.ui:ui:$compose_version"
     api "androidx.compose.material:material:$compose_version"
     api "androidx.ui:ui-tooling:$compose_version"
