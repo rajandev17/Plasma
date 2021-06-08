@@ -30,10 +30,36 @@ plugins {
     id 'dagger.hilt.android.plugin'
 }
 
+def android_builder_version = "4.0.1"
+
+ext {
+    android_builder_main_version = Integer.parseInt(android_builder_version.split("\\.")[0])
+    android_builder_mid_version = Integer.parseInt(android_builder_version.split("\\.")[1])
+}
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
-
+    this.rootProject.buildscript.configurations.classpath
+            .resolvedConfiguration
+            .firstLevelModuleDependencies.
+            each {
+                def name = it.name
+                if (name.contains('com.android.tools.build:gradle')) {
+                    def moduleVersion = it.moduleVersion
+                    if (moduleVersion.contains("-")) {
+                        def alphaversionArray = moduleVersion.split("-")[0]
+                        def versionArray = alphaversionArray.toString().split("\\.")
+                        ext.android_builder_main_version = Integer.parseInt(versionArray[0])
+                        ext.android_builder_mid_version = Integer.parseInt(versionArray[1])
+                    } else {
+                        version = moduleVersion
+                        android_builder_version = moduleVersion
+                        ext.android_builder_main_version = Integer.parseInt(android_builder_version.split("\\.")[0])
+                        ext.android_builder_mid_version = Integer.parseInt(android_builder_version.split("\\.")[1])
+                    }
+                }
+            }
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 30
@@ -58,22 +84,24 @@ android {
         jvmTarget = '1.8'
         useIR = true
     }
-    buildFeatures {
-        compose true
+    if (ext.android_builder_main_version >= 7 || (ext.android_builder_main_version > 4 && ext.android_builder_mid_version > 1)) {
+        buildFeatures {
+            compose true
+        }
     }
     composeOptions {
         kotlinCompilerExtensionVersion compose_version
-        kotlinCompilerVersion '1.4.10'
+        kotlinCompilerVersion kotlin_version
     }
     kapt {
         generateStubs = true
     }
     sourceSets {
-        getByName("androidTest"){
+        getByName("androidTest") {
             java.srcDir("src/androidTest/java")
         }
 
-        getByName("main"){
+        getByName("main") {
             java.srcDir("src/main/java")
             java.srcDir("src/main/kotlin")
         }
@@ -81,7 +109,9 @@ android {
 }
 
 dependencies {
-
+    testImplementation "junit:junit:4.13.1"
+    androidTestImplementation "androidx.test.ext:junit:1.1.2"
+    androidTestImplementation "androidx.test.espresso:espresso-core:3.3.0"
     //kotlin
     api "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     api "androidx.core:core-ktx:1.3.2"
@@ -91,6 +121,9 @@ dependencies {
     api "com.google.android.material:material:1.2.1"
 
     //compose
+    if (android_builder_main_version < 7) {
+        add("kotlinCompilerPluginClasspath", "androidx.compose.compiler:compiler:$compose_version")
+    }
     api "androidx.compose.ui:ui:$compose_version"
     api "androidx.compose.material:material:$compose_version"
     api "androidx.ui:ui-tooling:$compose_version"
@@ -128,8 +161,4 @@ dependencies {
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hilt_jetpack_version"
     kapt "androidx.hilt:hilt-compiler:$hilt_jetpack_version"
     kaptAndroidTest "androidx.hilt:hilt-compiler:$hilt_jetpack_version"
-
-    testImplementation "junit:junit:4.13.1"
-    androidTestImplementation "androidx.test.ext:junit:1.1.2"
-    androidTestImplementation "androidx.test.espresso:espresso-core:3.3.0"
 }
