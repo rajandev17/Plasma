@@ -29,7 +29,8 @@ buildscript {
         kotlin_version = "1.4.10"
         hilt_version = "2.28-alpha"
         hilt_jetpack_version = "1.0.0-alpha02"
-        lifecycle_version = "2.2.0"
+        lifecycle_version = "2.3.1"
+        lifecycle_extensions_version = "2.2.0"
         room_version = "2.2.5"
         glide_version = "4.11.0"
         compose_version = '1.0.0-alpha06'//1.0.0-beta08
