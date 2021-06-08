@@ -26,6 +26,7 @@ plugins {
     id 'com.android.library'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'kotlin-android-extensions'
     id 'dagger.hilt.android.plugin'
 }
 
@@ -129,14 +130,14 @@ dependencies {
     api "androidx.activity:activity-compose:$compose_activity_version"
     api "androidx.compose.ui:ui:$compose_version"
     api "androidx.compose.material:material:$compose_version"
-    api "androidx.ui:ui-tooling:$compose_version"
-    api "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_extensions_version"
+    api "androidx.compose.ui:ui-tooling:$compose_version"
+    api "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
     api "androidx.compose.runtime:runtime-livedata:$compose_version"
     api "androidx.compose.material:material-icons-extended:$compose_version"
     //lifecycle
-    api "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_extensions_version"
-    api "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
-    api "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_extensions_version"
+    api "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    api "androidx.lifecycle:lifecycle-extensions:$lifecycle_extensions_version"
+    api "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
 
     //room
     implementation "androidx.room:room-runtime:$room_version"
